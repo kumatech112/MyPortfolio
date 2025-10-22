@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">MyPortfolio</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Project</a></li>
+                <li><a href="#calendar">Calendar</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>สวัสดี ฉันคือ [ชื่อของคุณ]</h1>
+        <p>Web Developer | Designer | Creative Thinker</p>
+        <a href="#projects" class="btn">ดูผลงาน</a>
+    </section>
+
+    <!-- About Section -->
+    <div class="container">
+        <section id="about">
+            <h2>เกี่ยวกับฉัน</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="https://via.placeholder.com/400x400/667eea/ffffff?text=Your+Photo" alt="Profile">
+                </div>
+                <div class="about-text">
+                    <p>สวัสดีครับ/ค่ะ ฉันเป็นนักพัฒนาเว็บไซต์ที่มีความหลงใหลในการสร้างสรรค์ประสบการณ์ดิจิทัลที่น่าประทับใจ</p>
+                    <p>ฉันมีประสบการณ์ในการทำงานกับเทคโนโลยีหลากหลาย และมุ่งมั่นที่จะสร้างผลงานที่มีคุณภาพและตอบโจทย์ความต้องการของผู้ใช้งาน</p>
+                    <p>ฉันชอบเรียนรู้สิ่งใหม่ๆ และพัฒนาทักษะของตัวเองอยู่เสมอ</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2>ผลงานของฉัน</h2>
+            <div class="projects-grid">
+                <div class="project-card" onclick="window.location.href='project1.html'">
+                    <div class="project-image">🌐</div>
+                    <div class="project-content">
+                        <h3>E-Commerce Website</h3>
+                        <p>เว็บไซต์ขายสินค้าออนไลน์ที่มีระบบตะกร้าสินค้าและการชำระเงิน</p>
+                        <span class="view-more">ดูรายละเอียด →</span>
+                    </div>
+                </div>
+                <div class="project-card" onclick="window.location.href='project2.html'">
+                    <div class="project-image">📊</div>
+                    <div class="project-content">
+                        <h3>Dashboard Analytics</h3>
+                        <p>แดชบอร์ดแสดงผลข้อมูลสถิติและการวิเคราะห์แบบเรียลไทม์</p>
+                        <span class="view-more">ดูรายละเอียด →</span>
+                    </div>
+                </div>
+                <div class="project-card" onclick="window.location.href='project3.html'">
+                    <div class="project-image">🎯</div>
+                    <div class="project-content">
+                        <h3>Mobile App UI</h3>
+                        <p>ออกแบบ UI/UX สำหรับแอพพลิเคชันมือถือด้านการศึกษา</p>
+                        <span class="view-more">ดูรายละเอียด →</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calendar Section -->
+        <section id="calendar">
+            <h2>ปฏิทินงาน</h2>
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button id="prevMonth" class="calendar-nav">‹</button>
+                    <h3 id="currentMonth"></h3>
+                    <button id="nextMonth" class="calendar-nav">›</button>
+                </div>
+                <div class="calendar-grid" id="calendarGrid"></div>
+                <div class="calendar-events">
+                    <h3>กิจกรรมที่กำลังจะมาถึง</h3>
+                    <div class="event-list" id="eventList">
+                        <div class="event-item">
+                            <div class="event-date">15 ธ.ค. 2025</div>
+                            <div class="event-info">
+                                <h4>ประชุมลูกค้า - Project ABC</h4>
+                                <p>เวลา: 14:00 - 16:00 น.</p>
+                            </div>
+                        </div>
+                        <div class="event-item">
+                            <div class="event-date">20 ธ.ค. 2025</div>
+                            <div class="event-info">
+                                <h4>Workshop: Web Development</h4>
+                                <p>เวลา: 09:00 - 17:00 น.</p>
+                            </div>
+                        </div>
+                        <div class="event-item">
+                            <div class="event-date">25 ธ.ค. 2025</div>
+                            <div class="event-info">
+                                <h4>ส่งมอบโปรเจค E-Commerce</h4>
+                                <p>เวลา: 10:00 น.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>ติดต่อฉัน</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">ชื่อ</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">อีเมล</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">ข้อความ</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">ส่งข้อความ</button>
+            </form>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 MyPortfolio. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
