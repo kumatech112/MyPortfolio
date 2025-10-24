@@ -50,12 +50,19 @@
             </div>
         </section>
 
+        <!-- Skills & Tools Section -->
         <section id="skills">
             <h2>เครื่องมือและโปรแกรมที่ใช้งาน</h2>
             
             <div class="skills-category">
-                <h3>💻 Development</h3>
-                <div class="tools-grid">
+                <div class="category-header">
+                    <h3>💻 Development</h3>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn prev" onclick="scrollCarousel('dev', -1)">‹</button>
+                        <button class="carousel-btn next" onclick="scrollCarousel('dev', 1)">›</button>
+                    </div>
+                </div>
+                <div class="tools-carousel" id="dev-carousel">
                     <div class="tool-card">
                         <div class="tool-icon">🔷</div>
                         <h4>Visual Studio Code</h4>
@@ -76,12 +83,28 @@
                         <h4>React</h4>
                         <p>Frontend Framework</p>
                     </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">📘</div>
+                        <h4>TypeScript</h4>
+                        <p>Typed JavaScript</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">🎯</div>
+                        <h4>Next.js</h4>
+                        <p>React Framework</p>
+                    </div>
                 </div>
             </div>
 
             <div class="skills-category">
-                <h3>🎨 Design</h3>
-                <div class="tools-grid">
+                <div class="category-header">
+                    <h3>🎨 Design</h3>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn prev" onclick="scrollCarousel('design', -1)">‹</button>
+                        <button class="carousel-btn next" onclick="scrollCarousel('design', 1)">›</button>
+                    </div>
+                </div>
+                <div class="tools-carousel" id="design-carousel">
                     <div class="tool-card">
                         <div class="tool-icon">🎨</div>
                         <h4>Figma</h4>
@@ -102,12 +125,28 @@
                         <h4>Illustrator</h4>
                         <p>Vector Graphics</p>
                     </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">🎬</div>
+                        <h4>After Effects</h4>
+                        <p>Motion Graphics</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">🖌️</div>
+                        <h4>Sketch</h4>
+                        <p>Design Tool</p>
+                    </div>
                 </div>
             </div>
 
             <div class="skills-category">
-                <h3>🛠️ Tools & Services</h3>
-                <div class="tools-grid">
+                <div class="category-header">
+                    <h3>🛠️ Tools & Services</h3>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn prev" onclick="scrollCarousel('tools', -1)">‹</button>
+                        <button class="carousel-btn next" onclick="scrollCarousel('tools', 1)">›</button>
+                    </div>
+                </div>
+                <div class="tools-carousel" id="tools-carousel">
                     <div class="tool-card">
                         <div class="tool-icon">☁️</div>
                         <h4>Firebase</h4>
@@ -127,6 +166,16 @@
                         <div class="tool-icon">📊</div>
                         <h4>Analytics</h4>
                         <p>Google Analytics</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">🌐</div>
+                        <h4>AWS</h4>
+                        <p>Cloud Services</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">🔧</div>
+                        <h4>Webpack</h4>
+                        <p>Module Bundler</p>
                     </div>
                 </div>
             </div>

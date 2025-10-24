@@ -151,3 +151,51 @@ if (nextMonthBtn) {
 if (document.getElementById('calendarGrid')) {
     renderCalendar(currentDate);
 }
+// Carousel scroll function
+function scrollCarousel(carouselId, direction) {
+    const carousel = document.getElementById(`${carouselId}-carousel`);
+    if (!carousel) return;
+    
+    const scrollAmount = 250; // ระยะเลื่อนต่อครั้ง
+    const currentScroll = carousel.scrollLeft;
+    
+    carousel.scrollTo({
+        left: currentScroll + (direction * scrollAmount),
+        behavior: 'smooth'
+    });
+}
+
+// Touch swipe support for mobile
+document.querySelectorAll('.tools-carousel').forEach(carousel => {
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    carousel.addEventListener('mousedown', (e) => {
+        isDown = true;
+        carousel.style.cursor = 'grabbing';
+        startX = e.pageX - carousel.offsetLeft;
+        scrollLeft = carousel.scrollLeft;
+    });
+
+    carousel.addEventListener('mouseleave', () => {
+        isDown = false;
+        carousel.style.cursor = 'grab';
+    });
+
+    carousel.addEventListener('mouseup', () => {
+        isDown = false;
+        carousel.style.cursor = 'grab';
+    });
+
+    carousel.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - carousel.offsetLeft;
+        const walk = (x - startX) * 2;
+        carousel.scrollLeft = scrollLeft - walk;
+    });
+
+    // Add grab cursor
+    carousel.style.cursor = 'grab';
+});
