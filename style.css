@@ -66,12 +66,18 @@ nav {
     transition: 0.3s;
 }
 
+/* Scroll offset for all sections */
+section {
+    scroll-margin-top: 80px;
+}
+
 /* Hero Section */
 .hero {
-    margin-top: 70px;
+    margin-top: 0;
+    padding-top: 8rem;
+    padding-bottom: 5rem;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    padding: 5rem 2rem;
     text-align: center;
 }
 
@@ -105,11 +111,11 @@ nav {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 4rem 2rem;
+    padding: 0rem 2rem;
 }
 
 section {
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
 }
 
 h2 {
@@ -128,14 +134,14 @@ h2 {
 }
 
 .about-image {
-    flex: 0.1;
+    flex: 1;
     min-width: 250px;
 }
 
 .about-image img {
     width: 100%;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-radius: 50px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .about-text {
@@ -143,29 +149,9 @@ h2 {
     min-width: 300px;
 }
 
-/* Calendar Section */
-.calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 2rem;
-}
-
-.calendar-card {
-    background: #f8f9fa;
-    padding: 2rem;
-    border-radius: 10px;
-    text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.calendar-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-
-.calendar-icon {
-    font-size: 3rem;
+.about-text p {
     margin-bottom: 1rem;
+    font-size: 24px;
 }
 
 /* Projects Section */
@@ -180,11 +166,13 @@ h2 {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
 }
 
 .project-card:hover {
     transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
 }
 
 .project-image {
@@ -205,6 +193,158 @@ h2 {
 .project-content h3 {
     margin-bottom: 1rem;
     color: #667eea;
+}
+
+.view-more {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #667eea;
+    font-weight: bold;
+    transition: transform 0.3s;
+}
+
+.project-card:hover .view-more {
+    transform: translateX(5px);
+}
+
+/* Calendar Section */
+.calendar-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    padding: 2rem;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.calendar-header h3 {
+    font-size: 1.5rem;
+    color: #667eea;
+    margin: 0;
+    text-align: center;
+}
+
+.calendar-nav {
+    background: #667eea;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.calendar-nav:hover {
+    background: #764ba2;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.calendar-day-header {
+    text-align: center;
+    font-weight: bold;
+    padding: 1rem;
+    color: #667eea;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: #f8f9fa;
+    position: relative;
+}
+
+.calendar-day:hover {
+    background: #e0e7ff;
+}
+
+.calendar-day.today {
+    background: #667eea;
+    color: white;
+    font-weight: bold;
+}
+
+.calendar-day.has-event {
+    background: #fef3c7;
+    font-weight: bold;
+}
+
+.calendar-day.has-event::after {
+    content: '•';
+    color: #f59e0b;
+    font-size: 1.5rem;
+    position: absolute;
+    bottom: 5px;
+}
+
+.calendar-day.other-month {
+    color: #ccc;
+}
+
+.calendar-events {
+    margin-top: 2rem;
+}
+
+.calendar-events h3 {
+    color: #667eea;
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.event-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border-left: 4px solid #667eea;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.event-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.event-date {
+    min-width: 100px;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.event-info h4 {
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.event-info p {
+    color: #666;
+    font-size: 0.9rem;
 }
 
 /* Contact Section */
@@ -267,92 +407,6 @@ footer {
     color: white;
     text-align: center;
     padding: 2rem;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: flex;
-    }
-
-    .nav-links {
-        position: fixed;
-        left: -100%;
-        top: 70px;
-        flex-direction: column;
-        background: #667eea;
-        width: 100%;
-        text-align: center;
-        transition: 0.3s;
-        padding: 2rem 0;
-    }
-
-    .nav-links.active {
-        left: 0;
-    }
-
-    .hero h1 {
-        font-size: 2rem;
-    }
-
-    .hero p {
-        font-size: 1rem;
-    }
-
-    h2 {
-        font-size: 2rem;
-    }
-
-    .about-content {
-        flex-direction: column;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero {
-        padding: 3rem 1rem;
-    }
-
-    .container {
-        padding: 2rem 1rem;
-    }
-
-    .calendar-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .projects-grid {
-        grid-template-columns: 1fr;
-    }
-
-    /* Adjust other elements as needed for smaller screens */
-    /* เพิ่มในไฟล์ style.css เดิม */
-
-/* Project Card Hover Effect */
-.project-card {
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-}
-
-.project-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-}
-
-.view-more {
-    display: inline-block;
-    margin-top: 1rem;
-    color: #667eea;
-    font-weight: bold;
-    transition: transform 0.3s;
-}
-
-.project-card:hover .view-more {
-    transform: translateX(5px);
 }
 
 /* Project Detail Page Styles */
@@ -517,7 +571,75 @@ footer {
     color: #ccc;
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
+    .menu-toggle {
+        display: flex;
+    }
+
+    .nav-links {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        flex-direction: column;
+        background: #667eea;
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        padding: 2rem 0;
+    }
+
+    .nav-links.active {
+        left: 0;
+    }
+
+    .hero {
+        padding-top: 6rem;
+        padding-bottom: 3rem;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    .about-content {
+        flex-direction: column;
+    }
+
+    .calendar-container {
+        padding: 1rem;
+    }
+
+    .calendar-grid {
+        gap: 0.25rem;
+    }
+
+    .calendar-day {
+        font-size: 0.9rem;
+    }
+
+    .calendar-day-header {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .event-item {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .event-date {
+        min-width: auto;
+    }
+
     .project-header h1 {
         font-size: 2rem;
     }
@@ -531,303 +653,161 @@ footer {
         grid-template-columns: 1fr;
     }
 }
-/**/
-/* Calendar Section */
-.calendar-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    padding: 2rem;
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 5rem 1rem 3rem;
+    }
+
+    .container {
+        padding: 2rem 1rem;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .calendar-day.has-event::after {
+        font-size: 1rem;
+        bottom: 2px;
+    }
+}
+/* Skills & Tools Section */
+.skills-category {
+    margin-bottom: 4rem;
 }
 
-.calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-}
-
-.calendar-header h3 {
-    font-size: 1.5rem;
+.skills-category h3 {
+    font-size: 1.8rem;
     color: #667eea;
-    margin: 0;
+    margin-bottom: 2rem;
+    text-align: left;
 }
 
-.calendar-nav {
-    background: #667eea;
-    color: white;
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.calendar-nav:hover {
-    background: #764ba2;
-}
-
-.calendar-grid {
+.tools-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.5rem;
-    margin-bottom: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
 }
 
-.calendar-day-header {
-    text-align: center;
-    font-weight: bold;
-    padding: 1rem;
-    color: #667eea;
-}
-
-.calendar-day {
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s;
-    background: #f8f9fa;
-}
-
-.calendar-day:hover {
-    background: #e0e7ff;
-}
-
-.calendar-day.today {
-    background: #667eea;
-    color: white;
-    font-weight: bold;
-}
-
-.calendar-day.has-event {
-    background: #fef3c7;
-    font-weight: bold;
-}
-
-.calendar-day.has-event::after {
-    content: '•';
-    color: #f59e0b;
-    font-size: 1.5rem;
-    position: absolute;
-    margin-top: 20px;
-}
-
-.calendar-day.other-month {
-    color: #ccc;
-}
-
-.calendar-events {
-    margin-top: 2rem;
-}
-
-.calendar-events h3 {
-    color: #667eea;
-    margin-bottom: 1.5rem;
-}
-
-.event-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.event-item {
-    display: flex;
-    gap: 1.5rem;
-    padding: 1.5rem;
-    background: #f8f9fa;
+.tool-card {
+    background: white;
+    padding: 2rem;
     border-radius: 10px;
-    border-left: 4px solid #667eea;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.event-item:hover {
-    transform: translateX(5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+.tool-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
-.event-date {
-    min-width: 100px;
-    font-weight: bold;
-    color: #667eea;
+.tool-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
 }
 
-.event-info h4 {
-    margin-bottom: 0.5rem;
+.tool-card h4 {
     color: #333;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
 }
 
-.event-info p {
+.tool-card p {
     color: #666;
     font-size: 0.9rem;
 }
 
+/* Skills Bars */
+.skills-bars {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.skill-bar {
+    margin-bottom: 2rem;
+}
+
+.skill-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 30px;
+    background: #f0f0f0;
+    border-radius: 50px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 1rem;
+    color: white;
+    font-weight: bold;
+    transition: width 1s ease-in-out;
+    box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+}
+
+/* Animation for progress bars */
+@keyframes fillBar {
+    from {
+        width: 0;
+    }
+}
+
+.progress {
+    animation: fillBar 1.5s ease-in-out;
+}
+
+/* Responsive Design for Skills */
 @media (max-width: 768px) {
-    .calendar-container {
-        padding: 1rem;
+    .tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
     }
 
-    .calendar-grid {
-        gap: 0.25rem;
+    .tool-card {
+        padding: 1.5rem;
     }
 
-    .calendar-day {
+    .tool-icon {
+        font-size: 2.5rem;
+    }
+
+    .skills-category h3 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .progress-bar {
+        height: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tools-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .skill-info {
         font-size: 0.9rem;
     }
 
-    .event-item {
-        flex-direction: column;
-        gap: 0.5rem;
+    .progress-bar {
+        height: 20px;
     }
-
-    .event-date {
-        min-width: auto;
-    }
-}
-// Calendar functionality
-const monthNames = [
-    'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
-    'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
-];
-
-const dayNames = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'];
-
-let currentDate = new Date();
-
-// Events data (ตัวอย่าง - สามารถเพิ่มได้)
-const events = {
-    '2025-12-15': true,
-    '2025-12-20': true,
-    '2025-12-25': true
-};
-
-function renderCalendar(date) {
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    
-    // Update header
-    document.getElementById('currentMonth').textContent = 
-        `${monthNames[month]} ${year + 543}`; // +543 สำหรับปี พ.ศ.
-    
-    // Get first day of month and number of days
-    const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
-    const daysInMonth = lastDay.getDate();
-    const startingDayOfWeek = firstDay.getDay();
-    
-    // Get previous month's last days
-    const prevMonthLastDay = new Date(year, month, 0).getDate();
-    
-    const calendarGrid = document.getElementById('calendarGrid');
-    calendarGrid.innerHTML = '';
-    
-    // Add day headers
-    dayNames.forEach(day => {
-        const dayHeader = document.createElement('div');
-        dayHeader.className = 'calendar-day-header';
-        dayHeader.textContent = day;
-        calendarGrid.appendChild(dayHeader);
-    });
-    
-    // Add previous month's days
-    for (let i = startingDayOfWeek - 1; i >= 0; i--) {
-        const day = document.createElement('div');
-        day.className = 'calendar-day other-month';
-        day.textContent = prevMonthLastDay - i;
-        calendarGrid.appendChild(day);
-    }
-    
-    // Add current month's days
-    const today = new Date();
-    for (let i = 1; i <= daysInMonth; i++) {
-        const day = document.createElement('div');
-        day.className = 'calendar-day';
-        day.textContent = i;
-        
-        // Check if today
-        if (year === today.getFullYear() && 
-            month === today.getMonth() && 
-            i === today.getDate()) {
-            day.classList.add('today');
-        }
-        
-        // Check if has event
-        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
-        if (events[dateStr]) {
-            day.classList.add('has-event');
-        }
-        
-        calendarGrid.appendChild(day);
-    }
-    
-    // Add next month's days
-    const totalCells = calendarGrid.children.length - 7; // Subtract day headers
-    const remainingCells = 42 - totalCells; // 6 rows * 7 days
-    for (let i = 1; i <= remainingCells; i++) {
-        const day = document.createElement('div');
-        day.className = 'calendar-day other-month';
-        day.textContent = i;
-        calendarGrid.appendChild(day);
-    }
-}
-
-// Calendar navigation
-document.getElementById('prevMonth')?.addEventListener('click', () => {
-    currentDate.setMonth(currentDate.getMonth() - 1);
-    renderCalendar(currentDate);
-});
-
-document.getElementById('nextMonth')?.addEventListener('click', () => {
-    currentDate.setMonth(currentDate.getMonth() + 1);
-    renderCalendar(currentDate);
-});
-
-// Initialize calendar when page loads
-if (document.getElementById('calendarGrid')) {
-    renderCalendar(currentDate);
-}
-
-// Keep existing code (mobile menu, smooth scroll, form submission)
-const menuToggle = document.getElementById('menuToggle');
-const navLinks = document.getElementById('navLinks');
-
-if (menuToggle) {
-    menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-    });
-}
-
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-    });
-});
-
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-const contactForm = document.querySelector('.contact-form');
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        alert('ขอบคุณสำหรับข้อความของคุณ! (นี่เป็นเพียงตัวอย่าง)');
-    });
-}
 }

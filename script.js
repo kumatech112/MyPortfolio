@@ -2,9 +2,11 @@
 const menuToggle = document.getElementById('menuToggle');
 const navLinks = document.getElementById('navLinks');
 
-menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-});
+if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+}
 
 // Close menu when clicking on a link
 document.querySelectorAll('.nav-links a').forEach(link => {
@@ -28,10 +30,13 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // Form submission
-document.querySelector('.contact-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    alert('ขอบคุณสำหรับข้อความของคุณ! (นี่เป็นเพียงตัวอย่าง)');
-});
+const contactForm = document.querySelector('.contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('ขอบคุณสำหรับข้อความของคุณ! (นี่เป็นเพียงตัวอย่าง)');
+    });
+}
 
 // Calendar functionality
 const monthNames = [
@@ -55,8 +60,10 @@ function renderCalendar(date) {
     const month = date.getMonth();
     
     // Update header
-    document.getElementById('currentMonth').textContent = 
-        `${monthNames[month]} ${year + 543}`; // +543 สำหรับปี พ.ศ.
+    const currentMonthElement = document.getElementById('currentMonth');
+    if (currentMonthElement) {
+        currentMonthElement.textContent = `${monthNames[month]} ${year + 543}`;
+    }
     
     // Get first day of month and number of days
     const firstDay = new Date(year, month, 1);
@@ -68,6 +75,8 @@ function renderCalendar(date) {
     const prevMonthLastDay = new Date(year, month, 0).getDate();
     
     const calendarGrid = document.getElementById('calendarGrid');
+    if (!calendarGrid) return;
+    
     calendarGrid.innerHTML = '';
     
     // Add day headers
@@ -110,8 +119,8 @@ function renderCalendar(date) {
     }
     
     // Add next month's days
-    const totalCells = calendarGrid.children.length - 7; // Subtract day headers
-    const remainingCells = 42 - totalCells; // 6 rows * 7 days
+    const totalCells = calendarGrid.children.length - 7;
+    const remainingCells = 42 - totalCells;
     for (let i = 1; i <= remainingCells; i++) {
         const day = document.createElement('div');
         day.className = 'calendar-day other-month';
@@ -121,50 +130,24 @@ function renderCalendar(date) {
 }
 
 // Calendar navigation
-document.getElementById('prevMonth')?.addEventListener('click', () => {
-    currentDate.setMonth(currentDate.getMonth() - 1);
-    renderCalendar(currentDate);
-});
+const prevMonthBtn = document.getElementById('prevMonth');
+const nextMonthBtn = document.getElementById('nextMonth');
 
-document.getElementById('nextMonth')?.addEventListener('click', () => {
-    currentDate.setMonth(currentDate.getMonth() + 1);
-    renderCalendar(currentDate);
-});
+if (prevMonthBtn) {
+    prevMonthBtn.addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        renderCalendar(currentDate);
+    });
+}
+
+if (nextMonthBtn) {
+    nextMonthBtn.addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        renderCalendar(currentDate);
+    });
+}
 
 // Initialize calendar when page loads
 if (document.getElementById('calendarGrid')) {
     renderCalendar(currentDate);
-}
-
-if (menuToggle) {
-    menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-    });
-}
-
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-    });
-});
-
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-const contactForm = document.querySelector('.contact-form');
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        alert('ขอบคุณสำหรับข้อความของคุณ! (นี่เป็นเพียงตัวอย่าง)');
-    });
 }
