@@ -4,21 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kumaxx7-My Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Prompt:wght@500;700&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+            try {
+                const saved = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const theme = saved || (prefersDark ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch(e) {}
+        })();
+    </script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <a href="#skills" class="skip-link">ข้ามไปยังส่วนเนื้อหา</a>
     <!-- Header -->
     <header>
         <nav>
             <div class="logo">MyPortfolio</div>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Project</a></li>
-                <li><a href="#calendar">Calendar</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#home">หน้าแรก</a></li>
+                <li><a href="#about">เกี่ยวกับ</a></li>
+                <li><a href="#skills">ทักษะ</a></li>
+                <li><a href="#projects">ผลงาน</a></li>
+                <li><a href="#calendar">ปฏิทิน</a></li>
+                <li><a href="#contact">ติดต่อ</a></li>
             </ul>
+            <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="สลับโหมดกลางคืน">🌙</button>
             <div class="menu-toggle" id="menuToggle">
                 <span></span>
                 <span></span>
@@ -30,20 +45,20 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <h1>สวัสดี ผม พรพีระ ลิมป์สิทธิสาร</h1>
-        <p>Data IT | Designer | Creative Thinker</p>
+        <p>Data & IT • Designer • Creative Thinker</p>
         <a href="#projects" class="btn">ดูผลงาน</a>
     </section>
 
     <!-- About Section -->
-    <div class="container">
+    <main class="container" role="main">
         <section id="about">
-            <h2>About Me</h2>
+            <h2>เกี่ยวกับฉัน</h2>
             <div class="about-content">
                 <div class="about-image">
-                    <img src="asset/profile01.jpg" alt="Profile" style="width: 100%; max-width: 300px; border-color: #000000; border-width: 5px; border-style: solid;">
+                    <img src="asset/profile01.jpg" alt="Profile" loading="lazy" decoding="async" style="width: 100%; max-width: 300px; border-color: #000000; border-width: 5px; border-style: solid;">
                 </div>
                 <div class="about-text">
-                    <p>สวัสดีครับ! ผม "โต๋-พรพีระ" เป็นพนักงานบริษัท ตำแหน่ง Data IT</p>
+                    <p>สวัสดีครับ! ผม "โต๋-พรพีระ" พนักงานการจัดการข้อมูล ฝ่าย ไอที</p>
                     <p>โดยมีหน้าที่หลักในการจัดการข้อมูลและสนับสนุนงานด้านไอทีในองค์กร</p>
                     <p></p>
                 </div>
@@ -51,18 +66,14 @@
         </section>
 
         <!-- Skills & Tools Section -->
-        <section id="skills">
-            <h2>เครื่องมือและโปรแกรมที่ใช้งาน</h2>
+        <section id="skills" aria-labelledby="skills-title">
+            <h2 id="skills-title">ทักษะและเครื่องมือ</h2>
             
             <div class="skills-category">
                 <div class="category-header">
-                    <h3>💻 Development</h3>
-                    <div class="carousel-controls">
-                        <button class="carousel-btn prev" onclick="scrollCarousel('dev', -1)">‹</button>
-                        <button class="carousel-btn next" onclick="scrollCarousel('dev', 1)">›</button>
-                    </div>
+                    <h3 id="dev-title">💻 Development</h3>
                 </div>
-                <div class="tools-carousel" id="dev-carousel">
+                <div class="tools-carousel" id="dev-carousel" role="region" aria-roledescription="carousel" aria-labelledby="dev-title">
                     <div class="tool-card">
                         <div class="tool-icon">🔷</div>
                         <h4>Visual Studio Code</h4>
@@ -98,13 +109,9 @@
 
             <div class="skills-category">
                 <div class="category-header">
-                    <h3>🎨 Design</h3>
-                    <div class="carousel-controls">
-                        <button class="carousel-btn prev" onclick="scrollCarousel('design', -1)">‹</button>
-                        <button class="carousel-btn next" onclick="scrollCarousel('design', 1)">›</button>
-                    </div>
+                    <h3 id="design-title">🎨 Design</h3>
                 </div>
-                <div class="tools-carousel" id="design-carousel">
+                <div class="tools-carousel" id="design-carousel" role="region" aria-roledescription="carousel" aria-labelledby="design-title">
                     <div class="tool-card">
                         <div class="tool-icon">🎨</div>
                         <h4>Figma</h4>
@@ -140,13 +147,9 @@
 
             <div class="skills-category">
                 <div class="category-header">
-                    <h3>🛠️ Tools & Services</h3>
-                    <div class="carousel-controls">
-                        <button class="carousel-btn prev" onclick="scrollCarousel('tools', -1)">‹</button>
-                        <button class="carousel-btn next" onclick="scrollCarousel('tools', 1)">›</button>
-                    </div>
+                    <h3 id="tools-title">🛠️ Tools & Services</h3>
                 </div>
-                <div class="tools-carousel" id="tools-carousel">
+                <div class="tools-carousel" id="tools-carousel" role="region" aria-roledescription="carousel" aria-labelledby="tools-title">
                     <div class="tool-card">
                         <div class="tool-icon">☁️</div>
                         <h4>Firebase</h4>
@@ -233,44 +236,44 @@
         </section>
 
         <!-- Projects Section -->
-        <section id="projects">
-            <h2>ผลงานของฉัน</h2>
+        <section id="projects" aria-labelledby="projects-title">
+            <h2 id="projects-title">ผลงานเด่น</h2>
             <div class="projects-grid">
-                <div class="project-card" onclick="window.location.href='project1.html'">
+                <a class="project-card" href="project1.html" aria-label="ดูรายละเอียดโปรเจกต์ E-Commerce Website">
                     <div class="project-image">🌐</div>
                     <div class="project-content">
                         <h3>E-Commerce Website</h3>
                         <p>เว็บไซต์ขายสินค้าออนไลน์ที่มีระบบตะกร้าสินค้าและการชำระเงิน</p>
                         <span class="view-more">ดูรายละเอียด →</span>
                     </div>
-                </div>
-                <div class="project-card" onclick="window.location.href='project2.html'">
+                </a>
+                <a class="project-card" href="project2.html" aria-label="ดูรายละเอียดโปรเจกต์ Dashboard Analytics">
                     <div class="project-image">📊</div>
                     <div class="project-content">
                         <h3>Dashboard Analytics</h3>
                         <p>แดชบอร์ดแสดงผลข้อมูลสถิติและการวิเคราะห์แบบเรียลไทม์</p>
                         <span class="view-more">ดูรายละเอียด →</span>
                     </div>
-                </div>
-                <div class="project-card" onclick="window.location.href='project3.html'">
+                </a>
+                <a class="project-card" href="project3.html" aria-label="ดูรายละเอียดโปรเจกต์ Mobile App UI">
                     <div class="project-image">🎯</div>
                     <div class="project-content">
                         <h3>Mobile App UI</h3>
                         <p>ออกแบบ UI/UX สำหรับแอพพลิเคชันมือถือด้านการศึกษา</p>
                         <span class="view-more">ดูรายละเอียด →</span>
                     </div>
-                </div>
+                </a>
             </div>
         </section>
 
         <!-- Calendar Section -->
-        <section id="calendar">
-            <h2>ปฏิทินงาน</h2>
+        <section id="calendar" aria-labelledby="calendar-title">
+            <h2 id="calendar-title">ปฏิทินงาน</h2>
             <div class="calendar-container">
                 <div class="calendar-header">
-                    <button id="prevMonth" class="calendar-nav">‹</button>
+                    <button id="prevMonth" class="calendar-nav" type="button" aria-label="เดือนก่อนหน้า">‹</button>
                     <h3 id="currentMonth"></h3>
-                    <button id="nextMonth" class="calendar-nav">›</button>
+                    <button id="nextMonth" class="calendar-nav" type="button" aria-label="เดือนถัดไป">›</button>
                 </div>
                 <div class="calendar-grid" id="calendarGrid"></div>
                 <div class="calendar-events">
@@ -304,7 +307,7 @@
 
         <!-- Contact Section -->
         <section id="contact">
-            <h2>ติดต่อฉัน</h2>
+            <h2>ติดต่อ</h2>
             <form class="contact-form">
                 <div class="form-group">
                     <label for="name">ชื่อ</label>
@@ -321,13 +324,13 @@
                 <button type="submit" class="submit-btn">ส่งข้อความ</button>
             </form>
         </section>
-    </div>
+    </main>
 
     <!-- Footer -->
     <footer>
         <p>&copy; 2025 MyPortfolio. All rights reserved.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
