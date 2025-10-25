@@ -444,22 +444,26 @@ h2 {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: bold;
+    color: var(--text);
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
     padding: 0.8rem;
-    border: 2px solid #e0e0e0;
-    border-radius: 5px;
+    border: 2px solid rgba(0,0,0,0.12);
+    border-radius: 8px;
     font-family: inherit;
-    transition: border-color 0.3s;
+    background: var(--card);
+    color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 20%, transparent);
 }
 
 .form-group textarea {
@@ -467,13 +471,23 @@ h2 {
     min-height: 150px;
 }
 
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--muted);
+}
+
+:root[data-theme="dark"] .form-group input,
+:root[data-theme="dark"] .form-group textarea {
+    border-color: rgba(255,255,255,0.16);
+}
+
 .submit-btn {
     width: 100%;
     padding: 1rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
@@ -1173,6 +1187,27 @@ body.no-select {
     min-height: 560px;
     max-height: 900px;
     border: 0;
+}
+
+@media (max-width: 1024px) {
+    .calendar-embed iframe {
+        height: 70vh;
+        min-height: 520px;
+    }
+}
+
+@media (max-width: 768px) {
+    .calendar-embed iframe {
+        height: 65vh;
+        min-height: 440px;
+    }
+}
+
+@media (max-width: 480px) {
+    .calendar-embed iframe {
+        height: 60vh;
+        min-height: 380px;
+    }
 }
 .theme-toggle {
     margin-left: 12px;
