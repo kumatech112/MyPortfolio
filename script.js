@@ -40,7 +40,6 @@ function applyTheme(theme) {
     if (themeToggle) {
         const isDark = theme === 'dark';
         themeToggle.setAttribute('aria-pressed', String(isDark));
-        themeToggle.textContent = isDark ? '☀️' : '🌙';
         themeToggle.setAttribute('aria-label', isDark ? 'สลับเป็นโหมดสว่าง' : 'สลับเป็นโหมดกลางคืน');
     }
 }
@@ -82,10 +81,10 @@ if (contactForm) {
 function scrollCarousel(carouselId, direction) {
     const carousel = document.getElementById(`${carouselId}-carousel`);
     if (!carousel) return;
-
-    const scrollAmount = 250; // ระยะเลื่อนต่อครั้ง
+    
+    const scrollAmount = 250; // ระยะเลื่อนต่อครั้ง (ค่าเริ่มต้น)
     const currentScroll = carousel.scrollLeft;
-
+    
     carousel.scrollTo({
         left: currentScroll + (direction * scrollAmount),
         behavior: 'smooth'
@@ -94,84 +93,152 @@ function scrollCarousel(carouselId, direction) {
 
 // Enhance carousel usability: keyboard + drag + touch
 function initCarousels() {
+    const AUTO_ONLY = false; // เลื่อนแบบปกติ (ไม่ auto)
+    const INFINITE = false;  // ไม่โคลนการ์ด (ไม่วนด้วยการโคลน)
+    const AUTO_SPEED_PX_PER_SEC = 10; // ไม่ถูกใช้เมื่อ AUTO_ONLY=false
     document.querySelectorAll('.tools-carousel').forEach(carousel => {
-        // Make focusable for keyboard users
-        if (!carousel.hasAttribute('tabindex')) carousel.setAttribute('tabindex', '0');
+        // Infinite wrap (ปิดไว้ให้เหมือนจุดเริ่มต้น)
+        if (INFINITE && !carousel.dataset.infiniteInitialized) {
+            const originalChildren = Array.from(carousel.children);
+            if (originalChildren.length > 0) {
+                // Base width before any clones
+                const baseWidth = carousel.scrollWidth;
+                const copiesBefore = 2; // buffer size (left)
+                const copiesAfter = 2;  // buffer size (right)
 
-        // Keyboard navigation
-        carousel.addEventListener('keydown', (e) => {
-            const key = e.key;
-            if (key === 'ArrowLeft') {
-                e.preventDefault();
-                carousel.scrollBy({ left: -250, behavior: 'smooth' });
-            } else if (key === 'ArrowRight') {
-                e.preventDefault();
-                carousel.scrollBy({ left: 250, behavior: 'smooth' });
-            } else if (key === 'Home') {
-                e.preventDefault();
-                carousel.scrollTo({ left: 0, behavior: 'smooth' });
-            } else if (key === 'End') {
-                e.preventDefault();
-                carousel.scrollTo({ left: carousel.scrollWidth, behavior: 'smooth' });
+                const buildCloneSet = () => {
+                    const frag = document.createDocumentFragment();
+                    originalChildren.forEach(node => {
+                        const clone = node.cloneNode(true);
+                        clone.setAttribute('aria-hidden', 'true');
+                        clone.tabIndex = -1;
+                        frag.appendChild(clone);
+                    });
+                    return frag;
+                };
+
+                // Prepend and append buffers
+                for (let i = 0; i < copiesBefore; i++) {
+                    carousel.insertBefore(buildCloneSet(), carousel.firstChild);
+                }
+                for (let i = 0; i < copiesAfter; i++) {
+                    carousel.appendChild(buildCloneSet());
+                }
+
+                carousel.dataset.infiniteOriginalWidth = String(baseWidth);
+                carousel.dataset.infiniteBefore = String(copiesBefore);
+                carousel.dataset.infiniteAfter = String(copiesAfter);
+
+                // Start centered at the first original set (after left buffer)
+                carousel.classList.add('no-snap');
+                requestAnimationFrame(() => {
+                    carousel.scrollLeft = baseWidth * copiesBefore;
+                    carousel.classList.remove('no-snap');
+                });
+
+                // Recenter when approaching edges (far from visible edges to avoid noticeable jumps)
+                let ticking = false;
+                carousel.addEventListener('scroll', () => {
+                    if (ticking) return;
+                    ticking = true;
+                    requestAnimationFrame(() => {
+                        const base = Number(carousel.dataset.infiniteOriginalWidth || 0);
+                        const before = Number(carousel.dataset.infiniteBefore || 0);
+                        if (!base) { ticking = false; return; }
+                        const x = carousel.scrollLeft;
+                        const leftThreshold = base * (before - 0.5);
+                        const rightThreshold = base * (before + 1.5);
+                        if (x < leftThreshold) {
+                            carousel.classList.add('no-snap');
+                            carousel.scrollLeft = x + base;
+                            requestAnimationFrame(() => carousel.classList.remove('no-snap'));
+                        } else if (x > rightThreshold) {
+                            carousel.classList.add('no-snap');
+                            carousel.scrollLeft = x - base;
+                            requestAnimationFrame(() => carousel.classList.remove('no-snap'));
+                        }
+                        ticking = false;
+                    });
+                }, { passive: true });
+
+                carousel.dataset.infiniteInitialized = '1';
             }
-        });
+        }
+        if (AUTO_ONLY) {
+            // Disable manual scroll interactions
+            carousel.setAttribute('tabindex', '-1');
+            const block = (e) => e.preventDefault();
+            carousel.addEventListener('wheel', block, { passive: false });
+            carousel.addEventListener('touchstart', block, { passive: false });
+            carousel.addEventListener('touchmove', block, { passive: false });
+            carousel.addEventListener('mousedown', block);
+            // Disable snap during continuous auto scroll so motion isn't resisted
+            carousel.classList.add('no-snap');
 
-        // Mouse drag support
-        let isDown = false;
-        let startX;
-        let scrollLeft;
+            // Auto-scroll loop
+            if (!carousel.dataset.autoScroll) {
+                let last = null;
+                const tick = (ts) => {
+                    if (last == null) last = ts;
+                    const dt = (ts - last) / 1000;
+                    last = ts;
+                    carousel.scrollLeft += AUTO_SPEED_PX_PER_SEC * dt;
+                    requestAnimationFrame(tick);
+                };
+                requestAnimationFrame(tick);
+                carousel.dataset.autoScroll = '1';
+            }
+        } else {
+            // Keep keyboard + drag controls (legacy path)
+            if (!carousel.hasAttribute('tabindex')) carousel.setAttribute('tabindex', '0');
+            const KEY_STEP = 250; // ระยะเลื่อนต่อครั้งด้วยคีย์บอร์ด (ค่าเริ่มต้น)
+            carousel.addEventListener('keydown', (e) => {
+                const key = e.key;
+                if (key === 'ArrowLeft') {
+                    e.preventDefault();
+                    carousel.scrollBy({ left: -KEY_STEP, behavior: 'smooth' });
+                } else if (key === 'ArrowRight') {
+                    e.preventDefault();
+                    carousel.scrollBy({ left: KEY_STEP, behavior: 'smooth' });
+                } else if (key === 'Home') {
+                    e.preventDefault();
+                    carousel.scrollTo({ left: 0, behavior: 'smooth' });
+                } else if (key === 'End') {
+                    e.preventDefault();
+                    carousel.scrollTo({ left: carousel.scrollWidth, behavior: 'smooth' });
+                }
+            });
 
-        const startDrag = (pageX) => {
-            isDown = true;
-            carousel.style.cursor = 'grabbing';
-            startX = pageX - carousel.offsetLeft;
-            scrollLeft = carousel.scrollLeft;
-            // Prevent text selection across the page during drag
-            document.body.classList.add('no-select');
-        };
-
-        const moveDrag = (pageX) => {
-            if (!isDown) return;
-            const x = pageX - carousel.offsetLeft;
-            const walk = (x - startX) * 2;
-            carousel.scrollLeft = scrollLeft - walk;
-        };
-
-        const endDrag = () => {
-            isDown = false;
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            const startDrag = (pageX) => {
+                isDown = true;
+                carousel.style.cursor = 'grabbing';
+                startX = pageX - carousel.offsetLeft;
+                scrollLeft = carousel.scrollLeft;
+                document.body.classList.add('no-select');
+            };
+            const moveDrag = (pageX) => {
+                if (!isDown) return;
+                const x = pageX - carousel.offsetLeft;
+                const walk = (x - startX) * 2; // ความไวการลากตามค่าเริ่มต้นเดิม
+                carousel.scrollLeft = scrollLeft - walk;
+            };
+            const endDrag = () => {
+                isDown = false;
+                carousel.style.cursor = 'grab';
+                document.body.classList.remove('no-select');
+            };
+            carousel.addEventListener('mousedown', (e) => { e.preventDefault(); startDrag(e.pageX); });
+            carousel.addEventListener('mouseleave', endDrag);
+            carousel.addEventListener('mouseup', endDrag);
+            carousel.addEventListener('mousemove', (e) => { if (!isDown) return; e.preventDefault(); moveDrag(e.pageX); });
+            carousel.addEventListener('touchstart', (e) => { if (e.touches && e.touches.length > 0) startDrag(e.touches[0].pageX); }, { passive: true });
+            carousel.addEventListener('touchmove', (e) => { if (e.touches && e.touches.length > 0) moveDrag(e.touches[0].pageX); }, { passive: true });
+            carousel.addEventListener('touchend', endDrag, { passive: true });
             carousel.style.cursor = 'grab';
-            document.body.classList.remove('no-select');
-        };
-
-        carousel.addEventListener('mousedown', (e) => {
-            e.preventDefault();
-            startDrag(e.pageX);
-        });
-        carousel.addEventListener('mouseleave', endDrag);
-        carousel.addEventListener('mouseup', endDrag);
-        carousel.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            moveDrag(e.pageX);
-        });
-
-        // Touch support
-        carousel.addEventListener('touchstart', (e) => {
-            if (e.touches && e.touches.length > 0) {
-                startDrag(e.touches[0].pageX);
-            }
-        }, { passive: true });
-
-        carousel.addEventListener('touchmove', (e) => {
-            if (e.touches && e.touches.length > 0) {
-                moveDrag(e.touches[0].pageX);
-            }
-        }, { passive: true });
-
-        carousel.addEventListener('touchend', endDrag, { passive: true });
-
-        // Add grab cursor
-        carousel.style.cursor = 'grab';
+        }
     });
 }
 
@@ -213,5 +280,68 @@ if (document.readyState === 'loading') {
         a.addEventListener('mouseenter', () => addPrefetch(a.href));
         a.addEventListener('focus', () => addPrefetch(a.href));
         a.addEventListener('touchstart', () => addPrefetch(a.href), { passive: true });
+    });
+})();
+
+// Basic copy protection: block selection/copy on non-editable areas
+(function protectCopy() {
+    const isEditable = (el) => !!(el && (el.closest('input, textarea, [contenteditable="true"], .allow-select')));
+    // Add no-copy class to body
+    if (document.body) document.body.classList.add('no-copy');
+    else document.addEventListener('DOMContentLoaded', () => document.body.classList.add('no-copy'));
+
+    // Block context menu except on editable areas
+    document.addEventListener('contextmenu', (e) => {
+        if (!isEditable(e.target)) e.preventDefault();
+    });
+
+    // Block copy/cut/paste events on non-editable
+    ['copy','cut','paste'].forEach(type => {
+        document.addEventListener(type, (e) => {
+            if (!isEditable(e.target)) e.preventDefault();
+        });
+    });
+
+    // Block selection start and drag start on non-editable
+    document.addEventListener('selectstart', (e) => {
+        if (!isEditable(e.target)) e.preventDefault();
+    });
+    document.addEventListener('dragstart', (e) => {
+        if (!isEditable(e.target)) e.preventDefault();
+    });
+
+    // Block common shortcut keys (Ctrl/Cmd + C/X/A/S/P) outside editable
+    document.addEventListener('keydown', (e) => {
+        const key = e.key.toLowerCase();
+        if ((e.ctrlKey || e.metaKey) && ['c','x','a','s','p'].includes(key) && !isEditable(e.target)) {
+            e.preventDefault();
+        }
+    });
+})();
+
+// Back-to-top button
+(function initBackToTop() {
+    const btn = document.getElementById('backToTop');
+    if (!btn) return;
+
+    const toggleBtn = () => {
+        const threshold = 300; // px scrolled before showing
+        if (window.scrollY > threshold) {
+            btn.classList.add('show');
+        } else {
+            btn.classList.remove('show');
+        }
+    };
+
+    window.addEventListener('scroll', toggleBtn, { passive: true });
+    // Run once on load
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', toggleBtn);
+    } else {
+        toggleBtn();
+    }
+
+    btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 })();

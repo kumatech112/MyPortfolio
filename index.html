@@ -19,33 +19,41 @@
     </script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body style="transition: 20ms;"; >
     <a href="#skills" class="skip-link">ข้ามไปยังส่วนเนื้อหา</a>
     <!-- Header -->
     <header>
         <nav>
             <div class="logo">MyPortfolio</div>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#home">หน้าแรก</a></li>
+                <li><a href="#home">หน้าหลัก</a></li>
                 <li><a href="#about">เกี่ยวกับ</a></li>
                 <li><a href="#skills">ทักษะ</a></li>
                 <li><a href="#projects">ผลงาน</a></li>
                 <li><a href="#calendar">ปฏิทิน</a></li>
                 <li><a href="#contact">ติดต่อ</a></li>
             </ul>
-            <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="สลับโหมดกลางคืน">🌙</button>
-            <div class="menu-toggle" id="menuToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="สลับโหมดกลางคืน">
+                <span class="icon-sun" aria-hidden="true">
+                    <img src="asset/icon/sun.svg" alt="" width="22" height="22" />
+                </span>
+                <span class="icon-moon" aria-hidden="true">
+                    <img src="asset/icon/moon.svg" alt="" width="22" height="22" />
+                </span>
+            </button>
         </nav>
     </header>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
         <h1>สวัสดี ผม พรพีระ ลิมป์สิทธิสาร</h1>
-        <p>Data & IT • Designer • Creative Thinker</p>
+        <div class="pill-row" aria-label="skills">
+            <span class="pill">DATA IT</span>
+            <span class="pill">Back Office</span>
+            <span class="pill">Operations Support</span>
+            <span class="pill">Web Developer (Junior)</span>
+            <span class="pill">Graphic Designer (Junior)</span>
+        </div>
         <a href="#projects" class="btn">ดูผลงาน</a>
     </section>
 
@@ -55,7 +63,7 @@
             <h2>เกี่ยวกับฉัน</h2>
             <div class="about-content">
                 <div class="about-image">
-                    <img src="asset/profile01.jpg" alt="Profile" loading="lazy" decoding="async" style="width: 100%; max-width: 300px; border-color: #000000; border-width: 5px; border-style: solid;">
+                    <img src="asset/img/profile01.jpg" alt="Profile" loading="lazy" decoding="async" style="width: 100%; max-width: 300px; border-color: #000000; border-width: 5px; border-style: solid;">
                 </div>
                 <div class="about-text">
                     <p>สวัสดีครับ! ผม "โต๋-พรพีระ" พนักงานการจัดการข้อมูล ฝ่าย ไอที</p>
@@ -143,93 +151,8 @@
                         <p>Design Tool</p>
                     </div>
                 </div>
-            </div>
-
-            <div class="skills-category">
-                <div class="category-header">
-                    <h3 id="tools-title">🛠️ Tools & Services</h3>
-                </div>
-                <div class="tools-carousel" id="tools-carousel" role="region" aria-roledescription="carousel" aria-labelledby="tools-title">
-                    <div class="tool-card">
-                        <div class="tool-icon">☁️</div>
-                        <h4>Firebase</h4>
-                        <p>Backend Service</p>
-                    </div>
-                    <div class="tool-card">
-                        <div class="tool-icon">📮</div>
-                        <h4>Postman</h4>
-                        <p>API Testing</p>
-                    </div>
-                    <div class="tool-card">
-                        <div class="tool-icon">🐳</div>
-                        <h4>Docker</h4>
-                        <p>Containerization</p>
-                    </div>
-                    <div class="tool-card">
-                        <div class="tool-icon">📊</div>
-                        <h4>Analytics</h4>
-                        <p>Google Analytics</p>
-                    </div>
-                    <div class="tool-card">
-                        <div class="tool-icon">🌐</div>
-                        <h4>AWS</h4>
-                        <p>Cloud Services</p>
-                    </div>
-                    <div class="tool-card">
-                        <div class="tool-icon">🔧</div>
-                        <h4>Webpack</h4>
-                        <p>Module Bundler</p>
-                    </div>
                 </div>
             </div>
-
-            <div class="skills-category">
-                <h3>💪 Skills</h3>
-                <div class="skills-bars">
-                    <div class="skill-bar">
-                        <div class="skill-info">
-                            <span>HTML/CSS</span>
-                            <span>95%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 95%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-info">
-                            <span>JavaScript</span>
-                            <span>90%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 90%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-info">
-                            <span>React</span>
-                            <span>85%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 85%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-info">
-                            <span>UI/UX Design</span>
-                            <span>80%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 80%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-info">
-                            <span>Node.js</span>
-                            <span>75%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 75%"></div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -294,7 +217,7 @@
                 </div>
                 <div class="form-group">
                     <label for="message">ข้อความ</label>
-                    <textarea id="message" name="message" required></textarea>
+                    <textarea id="message" name="mes sage" required></textarea>
                 </div>
                 <button type="submit" class="submit-btn">ส่งข้อความ</button>
             </form>
@@ -305,7 +228,7 @@
     <footer>
         <p>&copy; 2025 MyPortfolio. All rights reserved.</p>
     </footer>
-
+    <button id="backToTop" class="back-to-top" aria-label="เลื่อนกลับขึ้นด้านบน" title="กลับขึ้นบนสุด">↑</button>
     <script src="script.js" defer></script>
 </body>
 </html>

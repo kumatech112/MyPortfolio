@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Analytics - Portfolio</title>
+    <script>
+        (function() {
+            try {
+                const saved = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const theme = saved || (prefersDark ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch(e) {}
+        })();
+    </script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,7 +21,7 @@
     <header>
         <nav>
             <div class="logo">MyPortfolio</div>
-            <ul class="nav-links">
+            <ul class="nav-links" id="navLinks">
                 <li><a href="index.html#home">หน้าแรก</a></li>
                 <li><a href="index.html#about">เกี่ยวกับ</a></li>
                 <li><a href="index.html#skills">ทักษะ</a></li>
@@ -19,7 +29,25 @@
                 <li><a href="index.html#calendar">ปฏิทิน</a></li>
                 <li><a href="index.html#contact">ติดต่อ</a></li>
             </ul>
+            <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="สลับโหมดกลางคืน">
+                <span class="icon-sun" aria-hidden="true">
+                    <img src="asset/icon/sun.svg" alt="" width="22" height="22" />
+                </span>
+                <span class="icon-moon" aria-hidden="true">
+                    <img src="asset/icon/moon.svg" alt="" width="22" height="22" />
+                </span>
+            </button>
         </nav>
+        <script>
+        (function() {
+            try {
+                const saved = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const theme = saved || (prefersDark ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch(e) {}
+        })();
+    </script>
     </header>
 
     <!-- Project Detail -->
@@ -95,7 +123,8 @@
     <footer>
         <p>&copy; 2025 MyPortfolio. All rights reserved.</p>
     </footer>
-
+    <button id="backToTop" class="back-to-top" aria-label="เลื่อนกลับขึ้นด้านบน" title="กลับขึ้นบนสุด">↑</button>
+    <script src="script.js" defer></script>
     <script>
         function openModal(element) {
             const modal = document.getElementById('imageModal');

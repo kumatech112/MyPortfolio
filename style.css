@@ -11,6 +11,25 @@ body {
     background: var(--bg);
 }
 
+/* Copy protection: disable selection globally, allow on editable fields */
+.no-copy,
+.no-copy * {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.no-copy input,
+.no-copy textarea,
+.no-copy [contenteditable="true"],
+.no-copy .allow-select {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
 /* Typography */
 h1, h2, h3, h4, .logo {
     font-family: 'Prompt', 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -147,6 +166,10 @@ section {
     background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
     color: white;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
 }
 
 .hero h1 {
@@ -157,15 +180,46 @@ section {
 .hero p {
     font-size: 1.3rem;
     margin-bottom: 2rem;
+
+}
+
+.pill-row{ 
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap; 
+    justify-content: center;
+    margin: 0 auto 2rem auto; 
+}
+
+.pill{
+  font-size: 16px; 
+  font-weight:500; 
+  letter-spacing:.05em;
+  padding:.28rem .55rem;
+  border-radius:500px;
+  background:#f1f5f9; 
+  color:#334155;       /* light */
+  border:1px solid #0001;
+
+}
+.dark .pill{ 
+    background:#111827; 
+    color:#e5e7eb; 
+    border-color:#334155; 
 }
 
 .btn {
     display: inline-block;
-    padding: 0.8rem 2rem;
+    padding: 0.5rem 1rem;
     background: white;
-    color: #667eea;
+    color: #f59e0b;
     text-decoration: none;
-    border-radius: 50px;
+    font-size: 30px;
+    font-weight:400px; 
+    letter-spacing:.05em;
+    border-style: solid;
+    border-radius: 100px;
+    border-color: #000;
     font-weight: bold;
     transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -508,6 +562,45 @@ footer {
 
 :root[data-theme="dark"] footer {
     background: #0B0F1A;
+}
+
+/* Back-to-top button */
+.back-to-top {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 9999px;
+    border: none;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+    color: #fff;
+    font-size: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    cursor: pointer;
+    z-index: 1100;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    box-shadow: 0 14px 30px rgba(0,0,0,0.25);
+}
+
+.back-to-top:focus-visible {
+    outline: 3px solid var(--accent-soft);
+    outline-offset: 3px;
 }
 
 /* Project Detail Page Styles */
@@ -973,15 +1066,29 @@ footer {
     overflow-x: auto;
     scroll-behavior: smooth;
     padding: 1rem 0;
-    scrollbar-width: thin;
+    scrollbar-width: none; /* Firefox: hide */
     scrollbar-color: var(--accent) #f0f0f0;
     -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: x proximity;
     /* Improve touch/drag experience */
     touch-action: pan-x;
+    overscroll-behavior-x: contain;
     /* Visual hint that content scrolls */
     -webkit-mask-image: linear-gradient(to right, transparent 0, #000 30px, #000 calc(100% - 30px), transparent 100%);
     mask-image: linear-gradient(to right, transparent 0, #000 30px, #000 calc(100% - 30px), transparent 100%);
+    -ms-overflow-style: none; /* IE/Edge: hide */
+}
+
+/* Temporarily disable snapping when we virtually wrap */
+.tools-carousel.no-snap {
+    scroll-snap-type: none;
+}
+
+/* WebKit: hide scrollbar completely */
+.tools-carousel::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+    display: none !important;
 }
 
 .tools-carousel::-webkit-scrollbar {
@@ -1021,6 +1128,7 @@ footer {
     -ms-user-select: none;
     user-select: none;
     -webkit-user-drag: none;
+    scroll-snap-align: center;
 }
 
 /* Temporarily disable selection across the page during drag */
@@ -1234,6 +1342,20 @@ body.no-select {
     outline: 3px solid var(--accent-soft);
     outline-offset: 2px;
 }
+
+/* Theme toggle icon states */
+.theme-toggle .icon-sun,
+.theme-toggle .icon-moon {
+    display: none;
+}
+
+:root[data-theme="dark"] #themeToggle .icon-sun { display: inline-flex; }
+:root[data-theme="light"] #themeToggle .icon-moon { display: inline-flex; }
+
+.theme-toggle svg, .theme-toggle img { width: 22px; height: 22px; display: inline-block; }
+
+/* Optional: improve contrast for dark theme if icons are dark */
+:root[data-theme="dark"] #themeToggle .icon-moon img.auto-invert { filter: invert(1) brightness(1.1); }
 
 /* Cards and text in dark */
 :root[data-theme="dark"] .project-card,
