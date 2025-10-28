@@ -219,7 +219,8 @@ section {
     letter-spacing:.05em;
     border-style: solid;
     border-radius: 100px;
-    border-color: #000;
+    border-width: 2px;
+    border-color: #4d4d4d;
     font-weight: bold;
     transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -1019,7 +1020,7 @@ footer {
 
 .category-header h3 {
     font-size: 1.8rem;
-    color: #667eea;
+    color: #D97706;
     margin: 0;
 }
 
