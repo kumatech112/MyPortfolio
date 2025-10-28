@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kumaxx7-MyPortfolio</title>
+    <link rel="icon" type="image/svg+xml" href="asset/logo/99%20LOGO.svg">
+    <link rel="apple-touch-icon" href="asset/img/profile01.jpg">
+    <meta name="theme-color" content="#F59E0B">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Prompt:wght@500;700&display=swap" rel="stylesheet">
@@ -24,14 +27,15 @@
     <!-- Header -->
     <header>
         <nav>
-            <div class="logo">MyPortfolio</div>
+            <a class="logo" href="#home" aria-label="หน้าแรก">
+                <img src="asset/logo/99 LOGO.svg" alt="99 Logo">
+            </a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home">หน้าหลัก</a></li>
                 <li><a href="#about">เกี่ยวกับ</a></li>
                 <li><a href="#skills">ทักษะ</a></li>
                 <li><a href="#projects">ผลงาน</a></li>
                 <li><a href="#calendar">ปฏิทิน</a></li>
-                <li><a href="#contact">ติดต่อ</a></li>
             </ul>
             <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="สลับโหมดกลางคืน">
                 <span class="icon-sun" aria-hidden="true">
@@ -92,15 +96,13 @@
                 <div class="tools-carousel" id="dev-carousel" role="region" aria-roledescription="carousel" aria-labelledby="dev-title">
                     <div class="tool-card">
                         <div class="tool-icon">
-                            <img src="asset/icon/Skills/canva.svg" alt="" width="70" height="70" />
+                            <img src="asset/icon/Skills/canva.svg" alt="Canva" />
                         </div>
                         <h4>Canva</h4>
                         <p>Advanced</p>
                     </div>
                     <div class="tool-card">
-                        <div class="tool-icon">
-                            <img src="asset/icon/Skills/imageedit.svg" alt="" width="70" height="70"/>
-                        </div>
+                        <div class="tool-icon"><img src="asset/icon/Skills/imageedit.svg" alt="Photo Editing" /></div>
                         <h4>Photo Editing</h4>
                         <p>Intermediate</p>
                     </div>
@@ -176,7 +178,7 @@
                 <div class="tools-carousel" id="design-carousel" role="region" aria-roledescription="carousel" aria-labelledby="design-title">
                     <div class="tool-card">
                         <div class="tool-icon">
-                            <img src="asset/icon/Skills/canva.svg" alt="" width="70" height="70"/>
+                            <img src="asset/icon/Skills/canva.svg" alt="Canva" />
                         </div>
                         <h4>Canva</h4>
                         <p>Creative Work</p>
@@ -316,3 +318,4 @@
     <script src="script.js" defer></script>
 </body>
 </html>
+

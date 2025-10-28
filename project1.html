@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-Commerce Website - Portfolio</title>
+    <link rel="icon" type="image/svg+xml" href="asset/logo/99%20LOGO.svg">
+    <link rel="apple-touch-icon" href="asset/img/profile01.jpg">
+    <meta name="theme-color" content="#F59E0B">
     <script>
         (function() {
             try {
@@ -20,21 +23,22 @@
     <!-- Header -->
     <header>
         <nav>
-            <div class="logo">MyPortfolio</div>
+            <a class="logo" href="index.html#home" aria-label="หน้าแรก">
+                <img src="asset/logo/99 LOGO.svg" alt="99 Logo">
+            </a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html#home">หน้าแรก</a></li>
                 <li><a href="index.html#about">เกี่ยวกับ</a></li>
                 <li><a href="index.html#skills">ทักษะ</a></li>
                 <li><a href="index.html#projects">ผลงาน</a></li>
                 <li><a href="index.html#calendar">ปฏิทิน</a></li>
-                <li><a href="index.html#contact">ติดต่อ</a></li>
             </ul>
             <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="สลับโหมดกลางคืน">
                 <span class="icon-sun" aria-hidden="true">
-                    <img src="asset/icon/sun.svg" alt="" width="22" height="22" />
+                    <img src="asset/icon/Mode/sun.svg" alt="" width="22" height="22" />
                 </span>
                 <span class="icon-moon" aria-hidden="true">
-                    <img src="asset/icon/moon.svg" alt="" width="22" height="22" />
+                    <img src="asset/icon/Mode/moon.svg" alt="" width="22" height="22" />
                 </span>
             </button>
         </nav>
@@ -42,21 +46,21 @@
 
     <!-- Project Detail -->
     <div class="project-detail">
-        <a href="index.html#projects" class="back-btn">← กลับไปหน้าผลงาน</a>
+        <a href="index.html#home" class="back-btn">← กลับไปหน้าผลงาน</a>
         
         <div class="project-header">
-            <h1>E-Commerce Website</h1>
+            <h1>Presentation</h1>
             <div class="project-meta">
-                <span>📅 มกราคม 2025</span>
-                <span>👤 Client: ABC Company</span>
-                <span>⏱️ ระยะเวลา: 3 เดือน</span>
+                <span>📅 05 สิงหาคม 2025</span>
+                <span>👤 ไม่ระบุชื่อ</span>
+                <span>⏱️ ระยะเวลา: 1 วัน</span>
             </div>
         </div>
 
         <div class="project-hero-image">🌐</div>
 
         <div class="project-description">
-            <h2>รายละเอียดโปรเจค</h2>
+            <h2>รายละเอียดงาน</h2>
             <p>เว็บไซต์ E-Commerce ที่ออกแบบมาสำหรับการขายสินค้าออนไลน์ มีระบบการจัดการสินค้า ตะกร้าสินค้า และระบบชำระเงินที่ปลอดภัย</p>
             <p>โปรเจคนี้เน้นประสบการณ์ผู้ใช้งานที่ดี ด้วยการออกแบบ UI ที่สะอาดตา ใช้งานง่าย และรองรับการใช้งานบนทุกอุปกรณ์</p>
             <p>ผลลัพธ์ที่ได้คือเว็บไซต์ที่มีประสิทธิภาพสูง โหลดเร็ว และช่วยเพิ่มยอดขายให้กับลูกค้าได้อย่างมีประสิทธิภาพ</p>
@@ -87,16 +91,32 @@
         </div>
 
         <div class="project-tech">
-            <h2>เทคโนโลยีที่ใช้</h2>
-            <div class="tech-tags">
-                <span class="tech-tag">HTML5</span>
-                <span class="tech-tag">CSS3</span>
-                <span class="tech-tag">JavaScript</span>
-                <span class="tech-tag">React</span>
-                <span class="tech-tag">Node.js</span>
-                <span class="tech-tag">MongoDB</span>
-                <span class="tech-tag">Stripe API</span>
-                <span class="tech-tag">Responsive Design</span>
+            <h2>เครื่องมือที่ใช้ในการทำงาน</h2>
+            <div class="tech-card-grid">
+                <article class="tech-card" aria-label="Canva">
+                    <div class="tech-card-icon">
+                        <img src="asset/icon/Skills/canva.svg" alt="Canva" width="56" height="56" />
+                    </div>
+                    <div class="tech-card-body">
+                        <h3 class="tech-card-title">Canva</h3>
+                    </div>
+                </article>
+                <article class="tech-card" aria-label="Illustrator">
+                    <div class="tech-card-icon">
+                        <img src="asset/icon/Skills/illustrator.svg" alt="Adobe Illustrator" width="56" height="56" />
+                    </div>
+                    <div class="tech-card-body">
+                        <h3 class="tech-card-title">Illustrator</h3>
+                    </div>
+                </article>
+                <article class="tech-card" aria-label="Photo Editing">
+                    <div class="tech-card-icon">
+                        <img src="asset/icon/Skills/imageedit.svg" alt="Photo Editing" width="56" height="56" />
+                    </div>
+                    <div class="tech-card-body">
+                        <h3 class="tech-card-title">Photo Editing</h3>
+                    </div>
+                </article>
             </div>
         </div>
     </div>

@@ -131,8 +131,19 @@ nav {
 }
 
 .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo img {
+    height: 48px;
+    width: auto;
+    display: block;
+}
+
+@media (max-width: 480px) {
+    .logo img { height: 28px; }
 }
 
 .nav-links {
@@ -185,14 +196,13 @@ section {
 }
 
 .hero h1 {
-    font-size: 3rem;
+    font-size: clamp(2rem, 3.5vw + 1rem, 3rem);
     margin-bottom: 1rem;
 }
 
 .hero p {
-    font-size: 1.3rem;
+    font-size: clamp(1rem, 1.2vw + 0.5rem, 1.3rem);
     margin-bottom: 2rem;
-
 }
 
 .pill-row{ 
@@ -246,7 +256,7 @@ section {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0rem 2rem;
+    padding: 0 1rem;
 }
 
 section {
@@ -254,7 +264,7 @@ section {
 }
 
 h2 {
-    font-size: 2.5rem;
+    font-size: clamp(1.375rem, 2vw + 0.75rem, 2.5rem);
     margin-bottom: 2rem;
     text-align: center;
     color: var(--accent);
@@ -336,6 +346,7 @@ h2 {
 .view-more {
     display: inline-block;
     margin-top: 1rem;
+    margin-left: 12rem;
     color: var(--accent);
     font-weight: bold;
     transition: transform 0.3s;
@@ -708,6 +719,7 @@ footer {
     margin-bottom: 3rem;
 }
 
+
 .project-description h2 {
     text-align: left;
     margin-bottom: 1rem;
@@ -760,6 +772,48 @@ footer {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+}
+
+/* Tech cards */
+.tech-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.tech-card {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.tech-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+}
+
+.tech-card-icon img,
+.tech-card-icon svg {
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+}
+
+.tech-card-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 1.05rem;
+}
+
+.tech-card-desc {
+    margin: 0.15rem 0 0 0;
+    color: var(--muted);
+    font-size: .9rem;
 }
 
 .tech-tag {
@@ -952,6 +1006,14 @@ footer {
     margin-bottom: 1rem;
 }
 
+/* Ensure tool icons (img/svg) are consistent across cards */
+.tool-icon img,
+.tool-icon svg {
+    width: 56px;
+    height: 56px;
+    display: inline-block;
+}
+
 .tool-card h4 {
     color: var(--text);
     margin-bottom: 0.5rem;
@@ -1066,7 +1128,7 @@ footer {
 }
 
 .category-header h3 {
-    font-size: 1.8rem;
+    font-size: clamp(1.25rem, 1.2vw + 0.8rem, 1.8rem);
     color: #D97706;
     margin: 0;
     display: inline-flex;
@@ -1434,3 +1496,27 @@ body.no-select {
 
 /* Calendar dark tweaks */
 :root[data-theme="dark"] .event-info p { color: var(--muted); }
+
+/* Make carousel tool cards square like tiles */
+.tools-carousel .tool-card {
+    width: 180px;
+    min-width: 180px; /* override base */
+    aspect-ratio: 1 / 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.tools-carousel .tool-card h4 { margin: 0; }
+.tools-carousel .tool-card p { margin: 0; font-size: 0.85rem; }
+
+@media (max-width: 480px) {
+    .tools-carousel .tool-card {
+        width: 140px;
+        min-width: 140px;
+        aspect-ratio: 1 / 1;
+    }
+}

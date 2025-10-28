@@ -319,6 +319,72 @@ if (document.readyState === 'loading') {
     });
 })();
 
+
+// Tracker admin/view-only permission layer
+(function secureTrackerPermissions(){ return;
+    const root = document.getElementById('tracker');
+    if (!root) return;
+    const headerEl = root.querySelector('.tracker-header');
+    const form = root.querySelector('.tracker-form');
+    const listEl = root.querySelector('.tracker-list');
+
+    // Set your admin code here
+    const TRACKER_ADMIN_CODE = 'kumaxx7'; // TODO: change to your secret
+    const ADMIN_FLAG_KEY = 'tracker:admin';
+    const isAdmin = () => localStorage.getItem(ADMIN_FLAG_KEY) === '1';
+    const setAdmin = (on) => { try { localStorage.setItem(ADMIN_FLAG_KEY, on ? '1' : '0'); } catch {} };
+
+    // Controls
+    const controls = document.createElement('div');
+    controls.className = 'tracker-admin-controls';
+    controls.innerHTML = '<button type="button" class="tracker-admin-login">เข้าสู่โหมด Admin</button>' +
+                         '<button type="button" class="tracker-admin-logout" style="display:none">ออกจากโหมด Admin</button>';
+    headerEl && headerEl.appendChild(controls);
+    const loginBtn = controls.querySelector('.tracker-admin-login');
+    const logoutBtn = controls.querySelector('.tracker-admin-logout');
+    loginBtn.addEventListener('click', () => {
+        if (!TRACKER_ADMIN_CODE || TRACKER_ADMIN_CODE === 'kumaxx7') {
+            alert('ยังไม่ได้ตั้งค่าโค้ด Admin ในไฟล์ script.js (TRACKER_ADMIN_CODE)');
+            return;
+        }
+        const code = prompt('กรุณาใส่โค้ด Admin');
+        if (code === TRACKER_ADMIN_CODE) { setAdmin(true); applyPermissions(); }
+        else alert('โค้ดไม่ถูกต้อง');
+    });
+    logoutBtn.addEventListener('click', () => { setAdmin(false); applyPermissions(); });
+
+    function applyPermissions(){
+        const admin = isAdmin();
+        if (form) form.style.display = admin ? '' : 'none';
+        loginBtn.style.display = admin ? 'none' : '';
+        logoutBtn.style.display = admin ? '' : 'none';
+        hideActionControls(!admin);
+    }
+
+    function hideActionControls(hide){
+        if (!listEl) return;
+        listEl.querySelectorAll('input[type="checkbox"]').forEach(el=>{ el.style.display = hide ? 'none' : ''; });
+        listEl.querySelectorAll('.tracker-actions').forEach(el=>{ el.style.display = hide ? 'none' : ''; });
+    }
+
+    // Prevent actions for non-admin (capture-phase)
+    if (form) form.addEventListener('submit', (e)=>{ if(!isAdmin()){ e.preventDefault(); e.stopImmediatePropagation(); }}, true);
+    if (listEl) listEl.addEventListener('click', (e)=>{
+        if (!isAdmin()) {
+            if (e.target.closest('input[type="checkbox"], .btn-done, .btn-undo, .btn-del')) {
+                e.preventDefault(); e.stopImmediatePropagation();
+            }
+        }
+    }, true);
+
+    // Observe list changes to re-apply hiding for view-only
+    if (listEl) {
+        const mo = new MutationObserver(()=> hideActionControls(!isAdmin()));
+        mo.observe(listEl, { childList: true, subtree: true });
+    }
+
+    applyPermissions();
+})();
 // Back-to-top button
 (function initBackToTop() {
     const btn = document.getElementById('backToTop');
@@ -345,3 +411,6 @@ if (document.readyState === 'loading') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 })();
+
+
+
