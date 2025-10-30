@@ -414,3 +414,76 @@ if (document.readyState === 'loading') {
 
 
 
+
+// Simple hero slider dots + snapping for project pages
+(function initHeroSlider(){
+    const slider = document.getElementById('heroSlider');
+    const dotsWrap = document.getElementById('heroDots');
+    if (!slider || !dotsWrap) return;
+    const slides = Array.from(slider.querySelectorAll('.hero-slide-card'));
+    dotsWrap.innerHTML = '';
+    slides.forEach((_, i) => {
+        const b = document.createElement('button');
+        b.className = 'hero-dot' + (i===0?' active':'');
+        b.type = 'button';
+        b.setAttribute('aria-label', ��ѧ��Ŵ��� );
+        b.addEventListener('click', () => {
+            const targetLeft = i * slider.clientWidth;
+            slider.scrollTo({ left: targetLeft, behavior: 'smooth' });
+        });
+        dotsWrap.appendChild(b);
+    });
+
+    function updateActive(){
+        const idx = Math.round(slider.scrollLeft / slider.clientWidth);
+        const dots = dotsWrap.querySelectorAll('.hero-dot');
+        dots.forEach((d, i) => d.classList.toggle('active', i===idx));
+    }
+    slider.addEventListener('scroll', () => {
+        if (slider._ticking) return; slider._ticking = true;
+        requestAnimationFrame(()=>{ updateActive(); slider._ticking = false; });
+    }, { passive: true });
+    window.addEventListener('resize', () => updateActive());
+})();
+
+// Hero slider enhanced: drag + auto ping-pong + dots
+(function initHeroSlider2(){
+  var slider = document.getElementById("heroSlider");
+  var dotsWrap = document.getElementById("heroDots");
+  if (!slider || !dotsWrap) return;
+  var slides = Array.prototype.slice.call(slider.querySelectorAll(".hero-slide-card"));
+  if (slides.length <= 1) return;
+  dotsWrap.innerHTML = "";
+  var dots = slides.map(function(_, i){
+    var b = document.createElement("button");
+    b.className = "hero-dot" + (i===0?" active":"");
+    b.type = "button";
+    b.setAttribute("aria-label", "��ѧ��Ŵ��� " + (i+1));
+    b.addEventListener("click", function(){ pauseAuto(); goTo(i); resumeAuto(); });
+    dotsWrap.appendChild(b);
+    return b;
+  });
+  function getIndex(){ return Math.round(slider.scrollLeft / slider.clientWidth); }
+  var current = 0;
+  function updateActive(){ var idx = getIndex(); dots.forEach(function(d, i){ d.classList.toggle("active", i===idx); }); current = idx; }
+  function goTo(i){ var left = Math.max(0, Math.min(i, slides.length-1)) * slider.clientWidth; slider.scrollTo({ left: left, behavior: "smooth" }); }
+  var dir = 1; var autoTimer = null; var INTERVAL_MS = 4000;
+  function tick(){ var next = current + dir; if (next >= slides.length) { dir = -1; next = current + dir; } if (next < 0) { dir = 1; next = current + dir; } goTo(next); }
+  function resumeAuto(){ if (!autoTimer) autoTimer = setInterval(tick, INTERVAL_MS); }
+  function pauseAuto(){ if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
+  slider.addEventListener("mouseenter", pauseAuto); slider.addEventListener("mouseleave", resumeAuto);
+  dotsWrap.addEventListener("mouseenter", pauseAuto); dotsWrap.addEventListener("mouseleave", resumeAuto);
+  var isDown = false, startX = 0, startScroll = 0;
+  function startDrag(x){ isDown = true; startX = x; startScroll = slider.scrollLeft; slider.style.cursor = "grabbing"; pauseAuto(); }
+  function moveDrag(x){ if (!isDown) return; slider.scrollLeft = startScroll - (x - startX); }
+  function endDrag(){ if (!isDown) return; isDown = false; slider.style.cursor = "grab"; resumeAuto(); updateActive(); }
+  slider.addEventListener("mousedown", function(e){ e.preventDefault(); startDrag(e.pageX); });
+  slider.addEventListener("mousemove", function(e){ if(!isDown) return; e.preventDefault(); moveDrag(e.pageX); });
+  slider.addEventListener("mouseup", endDrag); slider.addEventListener("mouseleave", endDrag);
+  slider.addEventListener("touchstart", function(e){ if(e.touches && e.touches.length) startDrag(e.touches[0].pageX); }, {passive:true});
+  slider.addEventListener("touchmove", function(e){ if(e.touches && e.touches.length) moveDrag(e.touches[0].pageX); }, {passive:true});
+  slider.addEventListener("touchend", endDrag, {passive:true});
+  slider.addEventListener("scroll", function(){ if (slider._ticking) return; slider._ticking = true; requestAnimationFrame(function(){ updateActive(); slider._ticking = false; }); }, {passive:true});
+  window.addEventListener("resize", updateActive);
+  slider.style.cursor = "grab"; updateActive(); resumeAuto();
+})();

@@ -1520,3 +1520,50 @@ body.no-select {
         aspect-ratio: 1 / 1;
     }
 }
+/* Ensure project cards behave as tiles in carousel */
+.tools-carousel .project-card {
+    min-width: 300px;
+    flex-shrink: 0;
+    display: block;
+}
+/* New hero slider styles */
+.project-hero {
+    margin-bottom: 3rem;
+}
+.project-hero-slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 1rem;
+    padding-bottom: .5rem;
+}
+.hero-slide-card {
+    flex: 0 0 100%;
+    max-width: 100%;
+    scroll-snap-align: center;
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    overflow: hidden;
+}
+.hero-slide-card img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+}
+.hero-dots {
+    margin-top: .75rem;
+    display: flex;
+    justify-content: center;
+    gap: .5rem;
+}
+.hero-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 9999px;
+    background: rgba(0,0,0,0.25);
+    cursor: pointer;
+}
+:root[data-theme=dark] .hero-dot { background: rgba(255,255,255,0.35); }
+.hero-dot.active { background: var(--accent); }

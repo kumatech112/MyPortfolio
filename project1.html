@@ -17,7 +17,7 @@
             } catch(e) {}
         })();
     </script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <!-- Header -->
@@ -46,10 +46,10 @@
 
     <!-- Project Detail -->
     <div class="project-detail">
-        <a href="index.html#home" class="back-btn">← กลับไปหน้าผลงาน</a>
+        <a href="index.html#projects" class="back-btn">← กลับไปหน้าผลงาน</a>
         
         <div class="project-header">
-            <h1>Presentation</h1>
+            <h1>งานทำสไลด์ให้บุคคลากรทางการแพทย์</h1>
             <div class="project-meta">
                 <span>📅 05 สิงหาคม 2025</span>
                 <span>👤 ไม่ระบุชื่อ</span>
@@ -57,13 +57,27 @@
             </div>
         </div>
 
-        <div class="project-hero-image">🌐</div>
+                <div class="project-hero">
+            <div class="project-hero-slider" id="heroSlider">
+                <div class="hero-slide-card">
+                    <img src="https://via.placeholder.com/1200x600/667eea/ffffff?text=Homepage" alt="Homepage" loading="lazy" decoding="async">
+                </div>
+                <div class="hero-slide-card">
+                    <img src="https://via.placeholder.com/1200x600/764ba2/ffffff?text=Product+Page" alt="Product Page" loading="lazy" decoding="async">
+                </div>
+                <div class="hero-slide-card">
+                    <img src="https://via.placeholder.com/1200x600/667eea/ffffff?text=Shopping+Cart" alt="Shopping Cart" loading="lazy" decoding="async">
+                </div>
+                <div class="hero-slide-card">
+                    <img src="https://via.placeholder.com/1200x600/764ba2/ffffff?text=Checkout" alt="Checkout" loading="lazy" decoding="async">
+                </div>
+            </div>
+            <div class="hero-dots" id="heroDots" aria-label="����¹��Ŵ�"></div>
+        </div>
 
         <div class="project-description">
             <h2>รายละเอียดงาน</h2>
-            <p>เว็บไซต์ E-Commerce ที่ออกแบบมาสำหรับการขายสินค้าออนไลน์ มีระบบการจัดการสินค้า ตะกร้าสินค้า และระบบชำระเงินที่ปลอดภัย</p>
-            <p>โปรเจคนี้เน้นประสบการณ์ผู้ใช้งานที่ดี ด้วยการออกแบบ UI ที่สะอาดตา ใช้งานง่าย และรองรับการใช้งานบนทุกอุปกรณ์</p>
-            <p>ผลลัพธ์ที่ได้คือเว็บไซต์ที่มีประสิทธิภาพสูง โหลดเร็ว และช่วยเพิ่มยอดขายให้กับลูกค้าได้อย่างมีประสิทธิภาพ</p>
+            <p>ทำสไลด์นำเสนองาน 5 สไลด์ให้บุคลากรทางการแพทย์</p>
         </div>
 
         <div class="project-gallery">
@@ -137,7 +151,7 @@
     <a id="fastworkLink" class="fastwork-btn" href="https://fastwork.co/user/futokumaxx7" target="_blank" rel="noopener" aria-label="ไปที่โปรไฟล์ Fastwork">
         <img src="asset/icon/Fastwork/fastworklogo.svg" alt="Fastwork" width="26" height="26" />
     </a>
-    <script src="script.js" defer></script>
+    <script src="js/script.js" defer></script>
     <script>
         function openModal(element) {
             const modal = document.getElementById('imageModal');
@@ -161,3 +175,6 @@
     </script>
 </body>
 </html>
+
+
+
