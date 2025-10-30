@@ -18,6 +18,8 @@
         })();
     </script>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/owl.css">
+    <link rel="stylesheet" href="css/themeowl.css">
 </head>
 <body>
     <!-- Header -->
@@ -67,7 +69,13 @@
             </div>
         </div>
 
-        <div class="project-hero-image">🎯</div>
+        <div class="mt-2 project-hero">
+            <div id="owl-demo-3" class="owl-carousel owl-theme" style="border-radius:25px; opacity:1;">
+                <div class="item"><img src="https://via.placeholder.com/1200x600/667eea/ffffff?text=Splash+Screen" alt="slide-1" style="width:100%; border-radius:25px; padding:2px;" loading="lazy" decoding="async"></div>
+                <div class="item"><img src="https://via.placeholder.com/1200x600/764ba2/ffffff?text=Login+Page" alt="slide-2" style="width:100%; border-radius:25px; padding:2px;" loading="lazy" decoding="async"></div>
+                <div class="item"><img src="https://via.placeholder.com/1200x600/667eea/ffffff?text=Home+Screen" alt="slide-3" style="width:100%; border-radius:25px; padding:2px;" loading="lazy" decoding="async"></div>
+            </div>
+        </div>
 
         <div class="project-description">
             <h2>รายละเอียดโปรเจค</h2>
@@ -76,29 +84,7 @@
             <p>ผลลัพธ์ที่ได้คือ UI ที่สวยงาม ใช้งานสะดวก และได้รับการตอบรับที่ดีจากผู้ใช้งานทดสอบ</p>
         </div>
 
-        <div class="project-gallery">
-            <h2>ภาพตัวอย่างผลงาน</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item" onclick="openModal(this)">
-                    <img src="https://via.placeholder.com/400x300/667eea/ffffff?text=Splash+Screen" alt="Splash Screen" loading="lazy" decoding="async" width="400" height="300">
-                </div>
-                <div class="gallery-item" onclick="openModal(this)">
-                    <img src="https://via.placeholder.com/400x300/764ba2/ffffff?text=Login+Page" alt="Login Page" loading="lazy" decoding="async" width="400" height="300">
-                </div>
-                <div class="gallery-item" onclick="openModal(this)">
-                    <img src="https://via.placeholder.com/400x300/667eea/ffffff?text=Home+Screen" alt="Home Screen" loading="lazy" decoding="async" width="400" height="300">
-                </div>
-                <div class="gallery-item" onclick="openModal(this)">
-                    <img src="https://via.placeholder.com/400x300/764ba2/ffffff?text=Course+List" alt="Course List" loading="lazy" decoding="async" width="400" height="300">
-                </div>
-                <div class="gallery-item" onclick="openModal(this)">
-                    <img src="https://via.placeholder.com/400x300/667eea/ffffff?text=Lesson+View" alt="Lesson View" loading="lazy" decoding="async" width="400" height="300">
-                </div>
-                <div class="gallery-item" onclick="openModal(this)">
-                    <img src="https://via.placeholder.com/400x300/764ba2/ffffff?text=Profile+Page" alt="Profile Page" loading="lazy" decoding="async" width="400" height="300">
-                </div>
-            </div>
-        </div>
+        
 
         <div class="project-tech">
             <h2>เทคโนโลยีที่ใช้</h2>
@@ -131,7 +117,24 @@
     <a id="fastworkLink" class="fastwork-btn" href="https://fastwork.co/user/futokumaxx7" target="_blank" rel="noopener" aria-label="ไปที่โปรไฟล์ Fastwork">
         <img src="asset/icon/Fastwork/fastworklogo.svg" alt="Fastwork" width="26" height="26" />
     </a>
+    <!-- jQuery for Owl Carousel (local) -->
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <!-- Owl Carousel plugin (local) -->
+    <script src="js/own.js"></script>
+    <!-- Site scripts -->
     <script src="js/script.js" defer></script>
+    <script>
+        (function() {
+            function tryInit(){
+                if (window.jQuery && jQuery.fn && typeof jQuery.fn.owlCarousel === 'function') {
+                    jQuery(function($){ $('.owl-carousel').owlCarousel({ navigation:false, autoPlay:7000, items:1, itemsDesktop:false, itemsDesktopSmall:false, itemsTablet:false, itemsMobile:false }); });
+                } else if (window.initOwlFallback) {
+                    window.initOwlFallback();
+                }
+            }
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', tryInit); else tryInit();
+        })();
+    </script>
     <script>
         function openModal(element) {
             const modal = document.getElementById('imageModal');

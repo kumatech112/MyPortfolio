@@ -18,6 +18,8 @@
         })();
     </script>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/owl.css">
+    <link rel="stylesheet" href="css/themeowl.css">
 </head>
 <body>
     <!-- Header -->
@@ -57,22 +59,13 @@
             </div>
         </div>
 
-                <div class="project-hero">
-            <div class="project-hero-slider" id="heroSlider">
-                <div class="hero-slide-card">
-                    <img src="https://via.placeholder.com/1200x600/667eea/ffffff?text=Homepage" alt="Homepage" loading="lazy" decoding="async">
-                </div>
-                <div class="hero-slide-card">
-                    <img src="https://via.placeholder.com/1200x600/764ba2/ffffff?text=Product+Page" alt="Product Page" loading="lazy" decoding="async">
-                </div>
-                <div class="hero-slide-card">
-                    <img src="https://via.placeholder.com/1200x600/667eea/ffffff?text=Shopping+Cart" alt="Shopping Cart" loading="lazy" decoding="async">
-                </div>
-                <div class="hero-slide-card">
-                    <img src="https://via.placeholder.com/1200x600/764ba2/ffffff?text=Checkout" alt="Checkout" loading="lazy" decoding="async">
-                </div>
+        <div class="mt-2 project-hero">
+            <div id="owl-demo" class="owl-carousel owl-theme" style="border-radius:25px; opacity:1;">
+                <div class="item"><img src="https://via.placeholder.com/1200x600/667eea/ffffff?text=Homepage" alt="slide-1" style="width:100%; border-radius:25px; padding:2px;" loading="lazy" decoding="async"></div>
+                <div class="item"><img src="https://via.placeholder.com/1200x600/764ba2/ffffff?text=Product+Page" alt="slide-2" style="width:100%; border-radius:25px; padding:2px;" loading="lazy" decoding="async"></div>
+                <div class="item"><img src="https://via.placeholder.com/1200x600/667eea/ffffff?text=Shopping+Cart" alt="slide-3" style="width:100%; border-radius:25px; padding:2px;" loading="lazy" decoding="async"></div>
+                <div class="item"><img src="https://via.placeholder.com/1200x600/764ba2/ffffff?text=Checkout" alt="slide-4" style="width:100%; border-radius:25px; padding:2px;" loading="lazy" decoding="async"></div>
             </div>
-            <div class="hero-dots" id="heroDots" aria-label="����¹��Ŵ�"></div>
         </div>
 
         <div class="project-description">
@@ -80,29 +73,7 @@
             <p>ทำสไลด์นำเสนองาน 5 สไลด์ให้บุคลากรทางการแพทย์</p>
         </div>
 
-        <div class="project-gallery">
-            <h2>ภาพตัวอย่างผลงาน</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item" onclick="openModal(this)">
-                    <img src="https://via.placeholder.com/400x300/667eea/ffffff?text=Homepage" alt="Homepage" loading="lazy" decoding="async" width="400" height="300">
-                </div>
-                <div class="gallery-item" onclick="openModal(this)">
-                    <img src="https://via.placeholder.com/400x300/764ba2/ffffff?text=Product+Page" alt="Product Page" loading="lazy" decoding="async" width="400" height="300">
-                </div>
-                <div class="gallery-item" onclick="openModal(this)">
-                    <img src="https://via.placeholder.com/400x300/667eea/ffffff?text=Shopping+Cart" alt="Shopping Cart" loading="lazy" decoding="async" width="400" height="300">
-                </div>
-                <div class="gallery-item" onclick="openModal(this)">
-                    <img src="https://via.placeholder.com/400x300/764ba2/ffffff?text=Checkout" alt="Checkout" loading="lazy" decoding="async" width="400" height="300">
-                </div>
-                <div class="gallery-item" onclick="openModal(this)">
-                    <img src="https://via.placeholder.com/400x300/667eea/ffffff?text=User+Dashboard" alt="User Dashboard" loading="lazy" decoding="async" width="400" height="300">
-                </div>
-                <div class="gallery-item" onclick="openModal(this)">
-                    <img src="https://via.placeholder.com/400x300/764ba2/ffffff?text=Admin+Panel" alt="Admin Panel" loading="lazy" decoding="async" width="400" height="300">
-                </div>
-            </div>
-        </div>
+        
 
         <div class="project-tech">
             <h2>เครื่องมือที่ใช้ในการทำงาน</h2>
@@ -151,6 +122,11 @@
     <a id="fastworkLink" class="fastwork-btn" href="https://fastwork.co/user/futokumaxx7" target="_blank" rel="noopener" aria-label="ไปที่โปรไฟล์ Fastwork">
         <img src="asset/icon/Fastwork/fastworklogo.svg" alt="Fastwork" width="26" height="26" />
     </a>
+    <!-- jQuery for Owl Carousel (local) -->
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <!-- Owl Carousel plugin (local) -->
+    <script src="js/own.js"></script>
+    <!-- Site scripts -->
     <script src="js/script.js" defer></script>
     <script>
         function openModal(element) {
@@ -172,6 +148,33 @@
                 closeModal();
             }
         });
+    </script>
+    <script>
+        // Initialize Owl if available, otherwise use built-in fallback in js/script.js
+        (function(){
+            function tryInit(){
+                if (window.jQuery && jQuery.fn && typeof jQuery.fn.owlCarousel === 'function') {
+                    jQuery(function($){
+                        $("#owl-demo").owlCarousel({
+                            navigation: false,
+                            autoPlay: 7000,
+                            items: 1,
+                            itemsDesktop: false,
+                            itemsDesktopSmall: false,
+                            itemsTablet: false,
+                            itemsMobile: false
+                        });
+                    });
+                } else if (window.initOwlFallback) {
+                    window.initOwlFallback();
+                }
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', tryInit);
+            } else {
+                tryInit();
+            }
+        })();
     </script>
 </body>
 </html>
