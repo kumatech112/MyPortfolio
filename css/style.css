@@ -1199,7 +1199,7 @@ footer {
     scrollbar-width: none; /* Firefox: hide */
     scrollbar-color: var(--accent) #f0f0f0;
     -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x proximity;
+    scroll-snap-type: none;
     /* Improve touch/drag experience */
     touch-action: pan-x;
     overscroll-behavior-x: contain;
@@ -1248,7 +1248,6 @@ footer {
     text-align: center;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     transition: transform 0.3s, box-shadow 0.3s;
-    scroll-snap-align: start;
 }
 
 /* Avoid accidental text selection while interacting with carousels */
@@ -1258,7 +1257,6 @@ footer {
     -ms-user-select: none;
     user-select: none;
     -webkit-user-drag: none;
-    scroll-snap-align: center;
 }
 
 /* Temporarily disable selection across the page during drag */

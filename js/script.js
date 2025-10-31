@@ -97,6 +97,7 @@ function initCarousels() {
     const INFINITE = false;  // ไม่โคลนการ์ด (ไม่วนด้วยการโคลน)
     const AUTO_SPEED_PX_PER_SEC = 10; // ไม่ถูกใช้เมื่อ AUTO_ONLY=false
     document.querySelectorAll('.tools-carousel').forEach(carousel => {
+        if (carousel.dataset.marqueeInit) return;
         // Infinite wrap (ปิดไว้ให้เหมือนจุดเริ่มต้น)
         if (INFINITE && !carousel.dataset.infiniteInitialized) {
             const originalChildren = Array.from(carousel.children);
@@ -414,6 +415,152 @@ if (document.readyState === 'loading') {
 
 
 
+
+// Billboard marquee carousel plugin for Skills/Tools (infinite left scroll, pause on hover, draggable)
+(function initBillboard(){
+    const START_ON_HOVER_ONLY = false; // set true to move only after hover/touch
+    const targets = [
+        document.getElementById('dev-carousel'),
+        document.getElementById('design-carousel')
+    ].filter(Boolean);
+
+    if (!targets.length) return;
+
+    targets.forEach(setupMarquee);
+
+    function setupMarquee(root){
+        if (root.dataset.marqueeInit) return; // avoid double init
+        root.dataset.marqueeInit = '1';
+
+        // Ensure horizontal layout and hide scrollbars (CSS already handles)
+        root.style.whiteSpace = 'normal';
+        root.style.scrollBehavior = 'auto'; // manual control
+
+        const originals = Array.from(root.children);
+        if (originals.length === 0) return;
+
+        const baseWidth = root.scrollWidth;
+        if (!baseWidth) return;
+
+        const cloneSet = () => {
+            const frag = document.createDocumentFragment();
+            originals.forEach(node => {
+                const clone = node.cloneNode(true);
+                clone.setAttribute('aria-hidden', 'true');
+                clone.tabIndex = -1;
+                frag.appendChild(clone);
+            });
+            root.appendChild(frag);
+        };
+
+        // Always clone at least once so content wraps seamlessly
+        cloneSet();
+        let safety = 0;
+        while ((root.scrollWidth < baseWidth * 2 || root.scrollWidth <= root.clientWidth + baseWidth) && safety < 4) {
+            cloneSet();
+            safety++;
+        }
+
+        root.scrollLeft = 0;
+
+        let running = !START_ON_HOVER_ONLY;
+        let lastTs = 0;
+        let isVisible = true;
+        let dragging = false;
+        let startX = 0;
+        let startLeft = 0;
+        const speedPxPerSec = 30; // marquee speed (px/second)
+
+        root.style.cursor = 'grab';
+
+        const resume = () => {
+            if (!isVisible) return;
+            running = true;
+        };
+        const pause = () => { running = false; };
+
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.target !== root) return;
+                    isVisible = entry.isIntersecting;
+                    if (!isVisible) {
+                        pause();
+                    } else if (!dragging) {
+                        if (!START_ON_HOVER_ONLY || root.matches(':hover') || root === document.activeElement) {
+                            resume();
+                        }
+                    }
+                });
+            }, { threshold: 0.05 });
+            observer.observe(root);
+        }
+
+        if (START_ON_HOVER_ONLY) {
+            root.addEventListener('mouseenter', () => { if (!dragging) resume(); });
+            root.addEventListener('mouseleave', () => { if (!dragging) pause(); });
+            root.addEventListener('focusin', () => { if (!dragging) resume(); });
+            root.addEventListener('focusout', () => { if (!dragging) pause(); });
+        } else {
+            root.addEventListener('mouseenter', () => { if (!dragging) resume(); });
+            root.addEventListener('mouseleave', () => { if (!dragging) resume(); });
+            root.addEventListener('focusin', () => { if (!dragging) resume(); });
+            root.addEventListener('focusout', () => { if (!dragging && isVisible) resume(); });
+        }
+
+        if (!START_ON_HOVER_ONLY) {
+            resume();
+        }
+
+        const onDown = (x) => {
+            dragging = true;
+            startX = x;
+            startLeft = root.scrollLeft;
+            pause();
+            root.style.cursor = 'grabbing';
+        };
+        const onMove = (x) => {
+            if (!dragging) return;
+            root.scrollLeft = startLeft + (startX - x);
+        };
+        const onUp = () => {
+            if (!dragging) return;
+            dragging = false;
+            root.style.cursor = '';
+            if (!START_ON_HOVER_ONLY || root.matches(':hover') || root === document.activeElement) {
+                resume();
+            }
+        };
+
+        root.addEventListener('mousedown', (e) => { e.preventDefault(); onDown(e.pageX); });
+        window.addEventListener('mousemove', (e) => onMove(e.pageX));
+        window.addEventListener('mouseup', onUp);
+        root.addEventListener('touchstart', (e) => {
+            if (e.touches && e.touches.length) {
+                onDown(e.touches[0].pageX);
+            }
+        }, { passive: true });
+        root.addEventListener('touchmove', (e) => {
+            if (e.touches && e.touches.length) {
+                onMove(e.touches[0].pageX);
+            }
+        }, { passive: true });
+        root.addEventListener('touchend', onUp, { passive: true });
+
+        function tick(ts){
+            if (!lastTs) lastTs = ts;
+            const dt = (ts - lastTs) / 1000; // seconds
+            lastTs = ts;
+            if (running && !dragging) {
+                let next = root.scrollLeft + speedPxPerSec * dt;
+                while (next >= baseWidth) next -= baseWidth;
+                root.scrollLeft = next;
+            }
+            requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+    }
+})();
 
 // Owl Carousel vanilla fallback for #owl-demo when jQuery/plugin is unavailable
 window.initOwlFallback = function initOwlFallback(){
