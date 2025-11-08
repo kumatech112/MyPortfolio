@@ -1526,7 +1526,24 @@ body.no-select {
 }
 /* New hero slider styles */
 .project-hero {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+}
+.project-hero .owl-carousel {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+}
+.project-hero .owl-carousel .item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.project-hero .owl-carousel .item img {
+    width: min(90%, 800px);
+    margin: 0 auto;
+    display: block;
 }
 .project-hero-slider {
     display: flex;
