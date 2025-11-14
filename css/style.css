@@ -1583,6 +1583,13 @@ body.no-select {
 :root[data-theme=dark] .hero-dot { background: rgba(255,255,255,0.35); }
 .hero-dot.active { background: var(--accent); }
 
+.visit-indicator {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--muted);
+}
+
 /* Project video embeds */
 .project-video {
     margin: 2rem 0;

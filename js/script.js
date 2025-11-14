@@ -627,3 +627,19 @@ window.initOwlFallback = function initOwlFallback(){
         resume();
     });
 };
+
+// Visit counter using CountAPI (global count across visitors)
+(function initVisitCounter(){
+    const counterEl = document.getElementById('visitCount');
+    if (!counterEl) return;
+    const endpoint = 'https://api.counterapi.dev/v2/visit-index/visit-index';
+    fetch(endpoint)
+        .then(res => res.json())
+        .then(data => {
+            const value = data && typeof data.value === 'number' ? data.value : null;
+            counterEl.textContent = value != null ? value.toLocaleString('th-TH') : '—';
+        })
+        .catch(() => {
+            counterEl.textContent = '—';
+        });
+})();
