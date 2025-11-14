@@ -1585,7 +1585,13 @@ body.no-select {
 
 .visit-indicator {
     margin-top: 1rem;
+    width: 100%;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    line-height: 1.6;
     font-size: 0.95rem;
     color: var(--muted);
 }

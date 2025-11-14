@@ -632,7 +632,7 @@ window.initOwlFallback = function initOwlFallback(){
 (function initVisitCounter(){
     const counterEl = document.getElementById('visitCount');
     if (!counterEl) return;
-    const endpoint = 'https://api.counterapi.dev/v2/visit-index/visit-index';
+    const endpoint = 'https://api.counterapi.dev/hit/kumaxx7-portfolio/visit-index';
     fetch(endpoint)
         .then(res => res.json())
         .then(data => {
