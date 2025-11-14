@@ -79,12 +79,58 @@
 
         <div class="project-description">
             <h2>รายละเอียดโปรเจค</h2>
-            <p>การออกแบบ UI/UX สำหรับแอพพลิเคชันมือถือด้านการศึกษา มุ่งเน้นให้ผู้ใช้งานสามารถเข้าถึงบทเรียนและทำแบบทดสอบได้อย่างง่ายดาย</p>
-            <p>ออกแบบให้มีความทันสมัย ใช้งานง่าย และเหมาะสมกับกลุ่มเป้าหมายที่เป็นนักเรียนและนักศึกษา พร้อมระบบติดตามความก้าวหน้าในการเรียนรู้</p>
-            <p>ผลลัพธ์ที่ได้คือ UI ที่สวยงาม ใช้งานสะดวก และได้รับการตอบรับที่ดีจากผู้ใช้งานทดสอบ</p>
+            <p>การออกแบบ UI/UX สำหรับแอปเรียนออนไลน์ที่ช่วยให้นักเรียนเข้าถึงคอนเทนต์ สอบ และติดตามความก้าวหน้าได้ในที่เดียว</p>
+            <p>โจทย์คือสร้างประสบการณ์ onboarding ที่รวดเร็ว ลดจำนวนขั้นตอนสมัคร และทำให้การเรียนรู้บนมือถือทำได้แบบสั้นแต่ต่อเนื่อง</p>
+            <p>ชุดดีไซน์ครอบคลุมทั้ง iOS และ Android รวมถึง guideline สำหรับทีมพัฒนาเพื่อยึดเป็น Design System รุ่นแรก</p>
         </div>
 
-        
+        <div class="project-info-grid">
+            <article class="info-card">
+                <h3>บทบาท</h3>
+                <p>Product Designer &amp; Prototype Owner</p>
+            </article>
+            <article class="info-card">
+                <h3>แพลตฟอร์ม</h3>
+                <p>Mobile App (iOS / Android)</p>
+            </article>
+            <article class="info-card">
+                <h3>Deliverables</h3>
+                <p>High-fidelity Screens + Interactive Prototype</p>
+            </article>
+        </div>
+
+        <div class="project-content-grid">
+            <section class="project-section">
+                <h3>เป้าหมายหลัก</h3>
+                <ul>
+                    <li>ทำ onboarding ให้จบภายใน 2 นาทีพร้อม personalisation</li>
+                    <li>ออกแบบ Lesson Card ให้ผู้ใช้กลับมาเรียนต่อได้ในคลิกเดียว</li>
+                    <li>เพิ่ม Gamification ให้ผู้ใช้รักษา streak ได้อย่างสนุก</li>
+                </ul>
+            </section>
+            <section class="project-section">
+                <h3>บทบาทและความรับผิดชอบ</h3>
+                <ul>
+                    <li>รีเสิร์ชผู้ใช้กลุ่มเป้าหมาย 12 คนและสังเคราะห์ pain point หลัก</li>
+                    <li>ออกแบบ user flow, wireframe และ prototype ที่ทดสอบได้จริง</li>
+                    <li>กำหนด token ของ Design System เช่นสี ตัวอักษร และ spacing scale</li>
+                </ul>
+            </section>
+        </div>
+
+        <div class="project-highlights">
+            <h2>ฟีเจอร์หลัก</h2>
+            <ul>
+                <li>Dashboard เรียนรู้แบบ modular สามารถ pin คอร์สสำคัญ</li>
+                <li>ระบบ Challenge รายสัปดาห์พร้อม badge และ leaderboard</li>
+                <li>โหมดเรียนออฟไลน์และสรุปบทเรียนแบบ bite-sized</li>
+            </ul>
+        </div>
+
+        <div class="project-results">
+            <h2>ผลลัพธ์ที่ได้</h2>
+            <p>รอบทดสอบกับผู้ใช้จริง 2 กลุ่มทำให้เวลา onboarding ลดลง 45% และคะแนนความพึงพอใจ (SUS) เพิ่มขึ้นจาก 68 เป็น 86 ภายในรอบดีไซน์เดียว</p>
+        </div>
 
         <div class="project-tech">
             <h2>เทคโนโลยีที่ใช้</h2>
@@ -127,7 +173,7 @@
         (function() {
             function tryInit(){
                 if (window.jQuery && jQuery.fn && typeof jQuery.fn.owlCarousel === 'function') {
-                    jQuery(function($){ $('.owl-carousel').owlCarousel({ navigation:false, autoPlay:7000, items:1, itemsDesktop:false, itemsDesktopSmall:false, itemsTablet:false, itemsMobile:false }); });
+                    jQuery(function($){ $('.owl-carousel').owlCarousel({ navigation:false, autoPlay:5000, items:1, itemsDesktop:false, itemsDesktopSmall:false, itemsTablet:false, itemsMobile:false }); });
                 } else if (window.initOwlFallback) {
                     window.initOwlFallback();
                 }

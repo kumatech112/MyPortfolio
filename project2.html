@@ -18,8 +18,6 @@
         })();
     </script>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/owl.css">
-    <link rel="stylesheet" href="css/themeowl.css">
 </head>
 <body>
     <!-- Header -->
@@ -61,42 +59,50 @@
         <a href="index.html#projects" class="back-btn">← กลับไปหน้าผลงาน</a>
         
         <div class="project-header">
-            <h1>Dashboard Analytics</h1>
+            <h1>งานตัดต่อคลิปวีดีโอ สื่อการสอน Ultra Centrifuge</h1>
             <div class="project-meta">
-                <span>📅 กุมภาพันธ์ 2025</span>
-                <span>👤 Client: XYZ Corporation</span>
-                <span>⏱️ ระยะเวลา: 2 เดือน</span>
+                <span>📅 02 กันยายน 2025</span>
+                <span>👤 บุคคลากรทางด้านวิทยาศาสตร์</span>
+                <span>⏱️ ระยะเวลา: 1 เดือน</span>
             </div>
         </div>
 
-        <div class="mt-2 project-hero">
-            <div id="owl-demo-2" class="owl-carousel owl-theme" style="border-radius:25px; opacity:1;">
-                <div class="item"><img src="https://via.placeholder.com/1200x600/667eea/ffffff?text=Main+Dashboard" alt="slide-1" style="width:100%; border-radius:25px; padding:2px;" loading="lazy" decoding="async"></div>
-                <div class="item"><img src="https://via.placeholder.com/1200x600/764ba2/ffffff?text=Sales+Analytics" alt="slide-2" style="width:100%; border-radius:25px; padding:2px;" loading="lazy" decoding="async"></div>
-                <div class="item"><img src="https://via.placeholder.com/1200x600/667eea/ffffff?text=User+Reports" alt="slide-3" style="width:100%; border-radius:25px; padding:2px;" loading="lazy" decoding="async"></div>
+        <div class="project-video" aria-label="วิดีโอตัวอย่างผลงาน">
+            <div class="video-wrapper">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/7d0GvYTt_DQ?si=OlMZ51AxdolPUnxt" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                </iframe>
             </div>
         </div>
 
         <div class="project-description">
-            <h2>รายละเอียดโปรเจค</h2>
-            <p>แดชบอร์ดสำหรับแสดงข้อมูลสถิติและการวิเคราะห์แบบเรียลไทม์ ออกแบบมาเพื่อช่วยให้ผู้บริหารสามารถติดตามผลการดำเนินงานได้อย่างมีประสิทธิภาพ</p>
-            <p>ระบบมีการแสดงผลข้อมูลด้วยกราฟและชาร์ตที่หลากหลาย พร้อมฟีเจอร์การกรองข้อมูลตามช่วงเวลาและหมวดหมู่ต่างๆ</p>
-            <p>ออกแบบให้ใช้งานง่าย โหลดข้อมูลเร็ว และแสดงผลได้อย่างชัดเจนบนทุกอุปกรณ์</p>
+            <h2>รายละเอียดงาน</h2>
+            <p>ตัดต่อคลิปวิดีโอ และนำเสนอสื่อการสอนให้ดูแล้วเข้าใจสามารถนำไปใช้งานได้จริงในการสอน</p>
         </div>
 
-        
-
         <div class="project-tech">
-            <h2>เทคโนโลยีที่ใช้</h2>
-            <div class="tech-tags">
-                <span class="tech-tag">React</span>
-                <span class="tech-tag">TypeScript</span>
-                <span class="tech-tag">Chart.js</span>
-                <span class="tech-tag">D3.js</span>
-                <span class="tech-tag">Tailwind CSS</span>
-                <span class="tech-tag">REST API</span>
-                <span class="tech-tag">WebSocket</span>
-                <span class="tech-tag">Redux</span>
+            <h2>เครื่องมือที่ใช้ในการทำงาน</h2>
+            <div class="tech-card-grid">
+                <article class="tech-card" aria-label="Canva">
+                    <div class="tech-card-icon">
+                        <img src="asset/icon/Skills/premiere.svg" alt="Premier Pro" width="56" height="56" />
+                    </div>
+                    <div class="tech-card-body">
+                        <h3 class="tech-card-title">Premier Pro</h3>
+                    </div>
+                </article>
+                <article class="tech-card" aria-label="Canva">
+                    <div class="tech-card-icon">
+                        <img src="asset/icon/Skills/canva.svg" alt="Canva" width="56" height="56" />
+                    </div>
+                    <div class="tech-card-body">
+                        <h3 class="tech-card-title">Canva</h3>
+                    </div>
+                </article>
+                
             </div>
         </div>
     </div>
@@ -117,24 +123,8 @@
     <a id="fastworkLink" class="fastwork-btn" href="https://fastwork.co/user/futokumaxx7" target="_blank" rel="noopener" aria-label="ไปที่โปรไฟล์ Fastwork">
         <img src="asset/icon/Fastwork/fastworklogo.svg" alt="Fastwork" width="26" height="26" />
     </a>
-    <!-- jQuery for Owl Carousel (local) -->
-    <script src="js/jquery-1.11.3.min.js"></script>
-    <!-- Owl Carousel plugin (local) -->
-    <script src="js/own.js"></script>
     <!-- Site scripts -->
     <script src="js/script.js" defer></script>
-    <script>
-        (function() {
-            function tryInit(){
-                if (window.jQuery && jQuery.fn && typeof jQuery.fn.owlCarousel === 'function') {
-                    jQuery(function($){ $('.owl-carousel').owlCarousel({ navigation:false, autoPlay:7000, items:1, itemsDesktop:false, itemsDesktopSmall:false, itemsTablet:false, itemsMobile:false }); });
-                } else if (window.initOwlFallback) {
-                    window.initOwlFallback();
-                }
-            }
-            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', tryInit); else tryInit();
-        })();
-    </script>
     <script>
         function openModal(element) {
             const modal = document.getElementById('imageModal');
