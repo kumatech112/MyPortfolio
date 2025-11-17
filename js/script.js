@@ -632,14 +632,25 @@ window.initOwlFallback = function initOwlFallback(){
 (function initVisitCounter(){
     const counterEl = document.getElementById('visitCount');
     if (!counterEl) return;
-    const endpoint = 'https://api.counterapi.dev/hit/kumaxx7-portfolio/visit-index';
-    fetch(endpoint)
-        .then(res => res.json())
-        .then(data => {
-            const value = data && typeof data.value === 'number' ? data.value : null;
-            counterEl.textContent = value != null ? value.toLocaleString('th-TH') : '—';
-        })
-        .catch(() => {
-            counterEl.textContent = '—';
-        });
+    const body = document.body;
+    const apiKey = (body && body.dataset.counterApiKey) || window.COUNTER_API_KEY || '';
+    const endpoint = 'https://api.counterapi.dev/v2/visit-index/visit-index/up';
+    if (!apiKey || apiKey === 'visit-index') {
+        console.warn('visit-index');
+        counterEl.textContent = '—';
+        return;
+    }
+    fetch(endpoint, {
+        headers: {
+            'Authorization': `Bearer ${apiKey}`
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        const value = data && typeof data.value === 'number' ? data.value : null;
+        counterEl.textContent = value != null ? value.toLocaleString('th-TH') : '—';
+    })
+    .catch(() => {
+        counterEl.textContent = '—';
+    });
 })();
