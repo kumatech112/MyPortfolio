@@ -628,29 +628,53 @@ window.initOwlFallback = function initOwlFallback(){
     });
 };
 
-// Visit counter using CountAPI (global count across visitors)
+// Visit counter using CounterAPI (global count)
 (function initVisitCounter(){
     const counterEl = document.getElementById('visitCount');
-    if (!counterEl) return;
     const body = document.body;
-    const apiKey = (body && body.dataset.counterApiKey) || window.COUNTER_API_KEY || '';
-    const endpoint = 'https://api.counterapi.dev/v2/visit-index/visit-index/up';
-    if (!apiKey || apiKey === 'visit-index') {
-        console.warn('visit-index');
+    if (!counterEl || !body) return;
+
+    const API_BASE = 'https://api.counterapi.dev/v2';
+    const apiKey = body.dataset.counterApiKey || '';
+    const workspace = body.dataset.counterWorkspace || 'myportfolio';
+    const totalKey = body.dataset.counterTotalKey || 'site-views';
+    const prefix = body.dataset.counterPagePrefix || 'page-';
+    const safePath = location.pathname.replace(/[^\w-]+/g, '-').replace(/^-+|-+$/g, '') || 'home';
+    const pageKey = `${prefix}${safePath}`;
+
+    if (!apiKey || apiKey === 'ut_rf6SALLdbqRHW7QED9tIgBgiUTE8kjGnuGWK4WH1') {
+        console.warn('CounterAPI key is missing; visit counter disabled.');
         counterEl.textContent = '—';
         return;
     }
-    fetch(endpoint, {
-        headers: {
-            'Authorization': `Bearer ${apiKey}`
+
+    const sessionFlag = `counterapi-counted:${pageKey}`;
+    const hasSessionStorage = typeof window.sessionStorage !== 'undefined';
+    const shouldCount = hasSessionStorage ? !sessionStorage.getItem(sessionFlag) : true;
+
+    const headers = { 'Authorization': `Bearer ${apiKey}` };
+    const call = async (endpoint) => {
+        const res = await fetch(`${API_BASE}/${workspace}/${endpoint}`, { headers });
+        if (!res.ok) throw new Error(`CounterAPI error ${res.status}`);
+        return res.json();
+    };
+
+    (async () => {
+        try {
+            if (shouldCount) {
+                await call(`${pageKey}/up`);
+                await call(`${totalKey}/up`);
+                if (hasSessionStorage) {
+                    sessionStorage.setItem(sessionFlag, '1');
+                }
+            }
+            const { value } = await call(`${totalKey}`);
+            counterEl.textContent = typeof value === 'number'
+                ? value.toLocaleString('th-TH')
+                : '—';
+        } catch (err) {
+            console.error(err);
+            counterEl.textContent = '—';
         }
-    })
-    .then(res => res.json())
-    .then(data => {
-        const value = data && typeof data.value === 'number' ? data.value : null;
-        counterEl.textContent = value != null ? value.toLocaleString('th-TH') : '—';
-    })
-    .catch(() => {
-        counterEl.textContent = '—';
-    });
+    })();
 })();
